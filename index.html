@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تحليلات تعليقات kkcaffee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#dfe9f7;--bg2:#f3f6fc;--card:rgba(255,255,255,.82);--solid:#fff;--ink:#14213a;--muted:#6a7893;--line:#dde5f2;
+--accent:#2f6df6;--accent2:#d6e4ff;--pos:#1e9e6a;--neg:#e08a14;--crit:#d64545;--neu:#8a97b0;--shadow:0 6px 24px rgba(40,70,140,.08);color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg1:#0e1626;--bg2:#131d31;--card:rgba(26,38,60,.85);--solid:#1a263c;--ink:#e8eefb;--muted:#8fa0bf;--line:#2a3a58;
+--accent:#6e9bff;--accent2:#223a6a;--pos:#45d19a;--neg:#f0a73d;--crit:#ff7676;--neu:#8c9ab5;--shadow:none;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;color:var(--ink);line-height:1.6;min-height:100vh;
+background:linear-gradient(160deg,var(--bg1),var(--bg2) 60%)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.app{max-width:1240px;margin:0 auto;padding:20px 18px 48px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.brand h1{margin:0;font-size:1.45rem;font-weight:700}.brand p{margin:0;color:var(--muted);font-size:.85rem}
+.nav{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;box-shadow:var(--shadow)}
+.nav button{border:0;background:none;padding:7px 18px;border-radius:999px;font-size:.92rem}
+.nav button[aria-pressed=true]{background:var(--ink);color:var(--bg2)}
+.refresh{border:0;background:var(--accent);color:#fff;border-radius:999px;padding:9px 20px;font-weight:600}
+.refresh[disabled]{opacity:.6;cursor:wait}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px 20px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.card h3{margin:0 0 12px;font-size:1rem;font-weight:600;color:var(--muted)}
+.postnav{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.arrow{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:1.1rem}
+.arrow[disabled]{opacity:.35;cursor:default}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px;scrollbar-width:thin;flex:1}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);border-radius:16px;padding:7px 14px;text-align:start;max-width:230px}
+.chip b{display:block;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip small{color:var(--muted);font-size:.78rem}
+.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip[aria-pressed=true] small{color:#e6eeff}
+.phead{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px}
+.phead h2{margin:0;font-size:1.25rem}.phead p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+.phead a{color:var(--accent);text-decoration:none;font-size:.88rem;border:1px solid var(--line);border-radius:999px;padding:4px 14px;background:var(--card)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:16px}
+.kpi b{display:block;font-size:2rem;line-height:1.1;font-weight:700}.kpi span{color:var(--muted);font-size:.85rem}
+.kpi.pos b{color:var(--pos)}.kpi.neg b{color:var(--neg)}.kpi.crit b{color:var(--crit)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px}
+.donutwrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.legend{display:grid;gap:6px;font-size:.9rem;flex:1;min-width:130px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-inline-end:8px}
+.legend div{display:flex;justify-content:space-between}
+.hbar{display:grid;grid-template-columns:90px 1fr 30px;gap:10px;align-items:center;font-size:.88rem;margin:8px 0}
+.track{height:10px;background:var(--line);border-radius:999px;overflow:hidden;display:flex}
+.track i{display:block;height:100%}
+.hbar.link{cursor:pointer;background:none;border:0;width:100%;text-align:start;padding:0}
+.empty{color:var(--muted);text-align:center;padding:22px 0;font-size:.92rem}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.tools input,.tools select{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 14px}
+.tools input{flex:1;min-width:200px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tab{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 14px;font-size:.9rem}
+.tab b{margin-inline-start:6px}.tab[aria-pressed=true]{background:var(--ink);color:var(--bg2);border-color:var(--ink)}
+.list{display:grid;gap:10px}
+.row{display:block;width:100%;text-align:start;border:1px solid var(--line);border-inline-start:5px solid var(--neu);background:var(--card);border-radius:16px;padding:12px 16px}
+.row.positive{border-inline-start-color:var(--pos)}.row.negative{border-inline-start-color:var(--neg)}.row.critical{border-inline-start-color:var(--crit)}
+.row .h{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:.85rem;color:var(--muted)}
+.row .u{font-weight:600;color:var(--ink);direction:ltr;unicode-bidi:plaintext}
+.row p{margin:4px 0 0;overflow-wrap:anywhere}.row.done{opacity:.55}
+.badge{font-size:.78rem;padding:1px 10px;border-radius:999px;border:1px solid currentColor}
+.badge.positive{color:var(--pos)}.badge.negative{color:var(--neg)}.badge.critical{color:var(--crit)}.badge.neutral{color:var(--neu)}
+.notice{background:var(--accent2);border-radius:14px;padding:10px 16px;margin-bottom:14px;font-size:.9rem}
+dialog{width:min(560px,calc(100vw - 32px));border:1px solid var(--line);border-radius:22px;background:var(--solid);color:var(--ink);padding:22px}
+dialog::backdrop{background:rgba(10,20,40,.5)}
+dialog h2{margin:0 0 6px;direction:ltr;text-align:right;unicode-bidi:plaintext}
+.meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:.88rem;margin-bottom:12px}
+.quote{font-size:1.12rem;margin:10px 0 14px;padding-inline-start:14px;border-inline-start:3px solid var(--line);overflow-wrap:anywhere}
+.lbl{font-size:.85rem;color:var(--muted);margin:12px 0 4px}
+.reply{width:100%;min-height:100px;resize:vertical;font:inherit;color:inherit;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{border:1px solid var(--line);background:none;border-radius:12px;padding:8px 16px}
+.btn.p{background:var(--accent);border-color:var(--accent);color:#fff}.btn[disabled]{opacity:.6}
+.st{margin-top:10px;padding:8px 14px;border-radius:12px;font-size:.9rem;background:var(--accent2)}
+.links a{color:var(--accent);font-size:.85rem;margin-inline-end:12px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand"><h1>تحليلات تعليقات kkcaffee</h1><p id="upd">جارٍ التحميل…</p></div>
+    <div class="nav" id="nav"></div>
+    <button class="refresh" id="refresh">تحديث</button>
+  </div>
+  <div id="notice"></div>
+  <div class="postnav">
+    <button class="arrow" id="prev" aria-label="البوست السابق">›</button>
+    <div class="chips" id="chips"></div>
+    <button class="arrow" id="next" aria-label="البوست التالي">‹</button>
+  </div>
+  <div id="phead"></div>
+  <div id="main"></div>
+</div>
+<dialog id="dlg"></dialog>
+<script>
+const API_URL = "https://dania04.app.n8n.cloud/webhook/comments";
+const REPLY_API_URL = "https://dania04.app.n8n.cloud/webhook/reply-comment";
+const TONES=["positive","negative","critical","neutral"];
+const TL={positive:"إيجابي",negative:"سلبي",critical:"حرج",neutral:"محايد"};
+const TC={positive:"var(--pos)",negative:"var(--neg)",critical:"var(--crit)",neutral:"var(--neu)"};
+const CAT={food_quality:"جودة الأكل",delivery:"التوصيل",service:"الخدمة",price:"السعر",hygiene:"النظافة",other:"أخرى"};
+const catName=c=>CAT[c]||c||"أخرى";
+const DEMO=[
+{username:"mohammad_ali",comment_text:"الأكل كان ساخن ولذيذ والخدمة ممتازة",sentiment:"positive",category:"food_quality",summary:"طعام وخدمة ممتازة",suggested_reply:"يسعدنا أن التجربة أعجبتك!",action_required:"auto_reply",comment_id:"d1",post_id:"111",post_caption:"عرض القهوة الجديدة",timestamp:"2026-11-02T10:00:00"},
+{username:"sara.k",comment_text:"التوصيل تأخر ساعة والقهوة وصلت باردة",sentiment:"negative",category:"delivery",summary:"تأخر التوصيل",suggested_reply:"نعتذر عن التأخير، راسلنا على الخاص.",action_required:"follow_up",comment_id:"d2",post_id:"222",post_caption:"ركن الحلويات",timestamp:"2026-11-03T12:00:00"},
+{username:"omar_77",comment_text:"وجدت شعرة في الطلب",sentiment:"critical",category:"hygiene",summary:"شكوى نظافة",suggested_reply:"نعتذر بشدة، سنتواصل معك فوراً.",action_required:"escalate_to_manager",comment_id:"d3",post_id:"222",post_caption:"ركن الحلويات",timestamp:"2026-11-03T15:00:00"},
+{username:"lina",comment_text:"جميل جداً",sentiment:"positive",category:"other",summary:"إعجاب",suggested_reply:"شكراً لك!",action_required:"auto_reply",comment_id:"d4",post_id:"333",post_caption:"افتتاح الفرع",timestamp:"2026-11-05T09:00:00"},
+{username:"yaz",comment_text:"السعر غالي شوي",sentiment:"negative",category:"price",summary:"سعر مرتفع",suggested_reply:"نشكر ملاحظتك.",action_required:"follow_up",comment_id:"d5",post_id:"111",post_caption:"عرض القهوة الجديدة",timestamp:"2026-11-05T18:00:00"}];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+const done=new Set(store("done",[]));const saveDone=()=>{try{localStorage.setItem("done",JSON.stringify([...done]))}catch{}};
+let items=[],post="all",view="overview",tone="all",q="",cat="all",cur=null;
+const pidOf=r=>r.post_id&&String(r.post_id)!=="N/A"?String(r.post_id):"none";
+
+async function load(){
+  $("refresh").disabled=true;$("notice").innerHTML="";
+  let data;
+  try{
+    const r=await fetch(API_URL);if(!r.ok)throw new Error("HTTP "+r.status);
+    data=await r.json();if(!Array.isArray(data))data=data.data||[data];
+    $("upd").textContent="آخر تحديث "+new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
+  }catch(e){
+    data=DEMO;$("upd").textContent="بيانات تجريبية";
+    $("notice").innerHTML='<div class="notice">تعذر جلب البيانات من n8n ('+esc(e.message)+'). هذي بيانات تجريبية. تأكدي أن الـ webhook منشور وأن CORS مفعّل.</div>';
+  }
+  items=data.map((r,i)=>({...r,id:r.comment_id&&r.comment_id!=="N/A"?String(r.comment_id):"row"+i,
+    tone:TONES.find(k=>String(r.sentiment||"").toLowerCase().includes(k))||"neutral",post:pidOf(r),
+    caption:r.post_caption||"",purl:r.post_url||"",curl:r.comment_url||r.commentUrl||""})).filter(r=>r.comment_text).reverse();
+  if(post!=="all"&&!items.some(x=>x.post===post))post="all";
+  $("refresh").disabled=false;render();
+}
+const posts=()=>{const m=new Map();items.forEach(x=>{if(!m.has(x.post))m.set(x.post,{id:x.post,cap:"",url:"",n:0});const p=m.get(x.post);p.n++;if(!p.cap&&x.caption)p.cap=x.caption;if(!p.url&&x.purl)p.url=x.purl});return[...m.values()]};
+const pname=p=>p.cap?(p.cap.length>26?p.cap.slice(0,26)+"…":p.cap):(p.id==="none"?"بدون بوست":"بوست …"+p.id.slice(-5));
+const scope=()=>post==="all"?items:items.filter(x=>x.post===post);
+const cnt=(a,k)=>a.filter(x=>x.tone===k).length;
+const pct=(n,t)=>t?Math.round(n/t*100):0;
+
+function render(){
+  const ps=posts();
+  $("nav").innerHTML=[["overview","نظرة عامة"],["comments","التعليقات"]].map(([k,l])=>`<button data-v="${k}" aria-pressed="${view===k}">${l}</button>`).join("");
+  $("chips").innerHTML=`<button class="chip" data-p="all" aria-pressed="${post==="all"}"><b>كل البوستات</b><small>${items.length} تعليق</small></button>`+
+    ps.map(p=>`<button class="chip" data-p="${esc(p.id)}" aria-pressed="${post===p.id}"><b>${esc(pname(p))}</b><small>${p.n} تعليق</small></button>`).join("");
+  const idx=ps.findIndex(p=>p.id===post);
+  $("prev").disabled=post==="all";$("next").disabled=idx===ps.length-1;
+  const sel=ps.find(p=>p.id===post);
+  $("phead").innerHTML=sel?`<div class="phead card"><div><h2>${esc(sel.cap||pname(sel))}</h2><p>${sel.n} تعليق على هذا البوست</p></div>${sel.url?`<a href="${esc(sel.url)}" target="_blank" rel="noopener">فتح البوست ↗</a>`:""}</div>`:"";
+  $("main").innerHTML=view==="overview"?overview(ps):comments();
+}
+
+function donut(a){
+  const t=a.length,R=52,C=2*Math.PI*R;let off=0;
+  const segs=TONES.map(k=>{const n=cnt(a,k),len=t?n/t*C:0,s=`<circle r="${R}" cx="70" cy="70" fill="none" stroke="${TC[k]}" stroke-width="18" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)"/>`;off+=len;return s}).join("");
+  return `<svg viewBox="0 0 140 140" width="150" height="150" role="img" aria-label="توزيع المشاعر"><circle r="${R}" cx="70" cy="70" fill="none" stroke="var(--line)" stroke-width="18"/>${segs}
+  <text x="70" y="68" text-anchor="middle" font-size="24" font-weight="700" fill="var(--ink)">${pct(cnt(a,"positive"),t)}%</text><text x="70" y="88" text-anchor="middle" font-size="11" fill="var(--muted)">إيجابي</text></svg>`;
+}
+function timeline(a){
+  const m={};a.forEach(x=>{const d=String(x.timestamp||"").slice(0,10);if(d.length===10){m[d]=m[d]||{n:0};m[d][x.tone]=(m[d][x.tone]||0)+1;m[d].n++}});
+  const days=Object.keys(m).sort().slice(-14);
+  if(!days.length)return '<div class="empty">ما في تواريخ للتعليقات. أضيفي حقل timestamp بالـ webhook.</div>';
+  const mx=Math.max(...days.map(d=>m[d].n)),w=400/days.length,H=110;
+  return `<svg viewBox="0 0 400 140" width="100%" role="img" aria-label="التعليقات حسب اليوم">`+days.map((d,i)=>{
+    let y=H;const bw=Math.min(w-6,30),x=i*w+(w-bw)/2;
+    const bars=TONES.map(k=>{const h=(m[d][k]||0)/mx*H;y-=h;return h?`<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="3" fill="${TC[k]}"/>`:""}).join("");
+    return bars+`<text x="${x+bw/2}" y="128" text-anchor="middle" font-size="9" fill="var(--muted)">${d.slice(8)}/${d.slice(5,7)}</text>`}).join("")+`</svg>`;
+}
+function overview(ps){
+  const a=scope(),t=a.length;
+  if(!t)return '<div class="empty card">ما في تعليقات لعرضها.</div>';
+  const need=a.filter(x=>x.action_required&&!["auto_reply","none","n/a"].includes(String(x.action_required).toLowerCase())).length;
+  const kpi=(l,v,c="")=>`<div class="card kpi ${c}"><b>${v}</b><span>${l}</span></div>`;
+  const cats={};a.forEach(x=>{const k=x.category||"other";cats[k]=(cats[k]||0)+1});
+  const cl=Object.entries(cats).sort((x,y)=>y[1]-x[1]),cm=cl[0][1];
+  const cmp=post==="all"?`<div class="card"><h3>مقارنة البوستات (اضغطي للتنقل)</h3>${ps.map(p=>{const s=items.filter(x=>x.post===p.id);return `<button class="hbar link" data-p="${esc(p.id)}"><span>${esc(pname(p))}</span><div class="track">${TONES.map(k=>`<i style="width:${pct(cnt(s,k),s.length)}%;background:${TC[k]}"></i>`).join("")}</div><span>${s.length}</span></button>`}).join("")}</div>`:"";
+  const crit=a.filter(x=>x.tone==="critical"||x.tone==="negative").slice(0,4);
+  return `<div class="kpis">${kpi("إجمالي التعليقات",t)}${kpi("إيجابي",pct(cnt(a,"positive"),t)+"%","pos")}${kpi("سلبي",cnt(a,"negative"),"neg")}${kpi("حرج",cnt(a,"critical"),"crit")}${kpi("بحاجة متابعة",need)}${kpi("تم التعامل معه",a.filter(x=>done.has(x.id)).length)}</div>
+  <div class="grid">
+   <div class="card"><h3>توزيع المشاعر</h3><div class="donutwrap">${donut(a)}<div class="legend">${TONES.map(k=>`<div><span><i style="background:${TC[k]}"></i>${TL[k]}</span><b>${cnt(a,k)}</b></div>`).join("")}</div></div></div>
+   <div class="card"><h3>حسب التصنيف</h3>${cl.map(([k,n])=>`<div class="hbar"><span>${esc(catName(k))}</span><div class="track"><i style="width:${n/cm*100}%;background:var(--accent)"></i></div><span>${n}</span></div>`).join("")}</div>
+   <div class="card"><h3>التعليقات حسب اليوم</h3>${timeline(a)}</div>
+   ${cmp}
+   <div class="card"><h3>أهم الملاحظات السلبية</h3>${crit.length?crit.map(x=>`<button class="row ${x.tone}" data-id="${esc(x.id)}"><div class="h"><span class="u">${esc(x.username)}</span><span class="badge ${x.tone}">${TL[x.tone]}</span></div><p>${esc(x.comment_text)}</p></button>`).join(""):'<div class="empty">ما في ملاحظات سلبية 🎉</div>'}</div>
+  </div>`;
+}
+function comments(){
+  const a=scope();
+  const cats=[...new Set(a.map(x=>x.category).filter(Boolean))];
+  const f=a.filter(x=>(tone==="all"||x.tone===tone)&&(cat==="all"||x.category===cat)&&(!q||[x.username,x.comment_text,x.summary].join(" ").toLowerCase().includes(q.toLowerCase())));
+  return `<div class="tools"><input id="q" value="${esc(q)}" placeholder="ابحثي بالاسم أو نص التعليق…" aria-label="بحث"><select id="cat" aria-label="التصنيف"><option value="all">كل التصنيفات</option>${cats.map(c=>`<option value="${esc(c)}" ${cat===c?"selected":""}>${esc(catName(c))}</option>`).join("")}</select></div>
+  <div class="tabs">${["all",...TONES].map(k=>`<button class="tab" data-t="${k}" aria-pressed="${tone===k}">${k==="all"?"الكل":TL[k]}<b>${k==="all"?a.length:cnt(a,k)}</b></button>`).join("")}</div>
+  <div class="list">${f.length?f.map(x=>`<button class="row ${x.tone} ${done.has(x.id)?"done":""}" data-id="${esc(x.id)}"><div class="h"><span class="u">${esc(x.username)}</span><span class="badge ${x.tone}">${TL[x.tone]}</span></div><p>${esc(x.comment_text)}</p></button>`).join(""):'<div class="empty card">ما في تعليقات مطابقة.</div>'}</div>`;
+}
+function openDetail(id){
+  const x=items.find(i=>i.id===id);if(!x)return;cur=id;
+  $("dlg").innerHTML=`<h2>${esc(x.username)}</h2>
+  <div class="meta"><span class="badge ${x.tone}">${TL[x.tone]}</span><span>${esc(catName(x.category))}</span>${x.like_count?`<span>♥ ${esc(x.like_count)}</span>`:""}${x.timestamp?`<span>${esc(String(x.timestamp).slice(0,10))}</span>`:""}</div>
+  ${x.caption?`<div class="meta">📌 ${esc(x.caption)}</div>`:""}
+  <div class="links">${x.purl?`<a href="${esc(x.purl)}" target="_blank" rel="noopener">فتح البوست ↗</a>`:""}${x.curl&&/^https?:/.test(x.curl)?`<a href="${esc(x.curl)}" target="_blank" rel="noopener">فتح التعليق ↗</a>`:""}</div>
+  <p class="quote">${esc(x.comment_text)}</p>
+  ${x.summary?`<div class="lbl">ملخص</div><div>${esc(x.summary)}</div>`:""}
+  <div class="lbl">الرد المقترح</div><textarea class="reply" id="reply">${esc(x.suggested_reply)}</textarea>
+  <div class="acts"><button class="btn p" id="send">إرسال الرد على انستغرام</button><button class="btn" id="copy">نسخ الرد</button><button class="btn" id="mark">${done.has(x.id)?"إعادة فتح":"تم التعامل معه"}</button><button class="btn" id="close">إغلاق</button></div>
+  <div class="st" id="st" hidden></div>`;
+  $("dlg").showModal();
+}
+function step(d){const ps=posts(),i=post==="all"?-1:ps.findIndex(p=>p.id===post),n=i+d;post=n<0?"all":ps[Math.min(n,ps.length-1)].id;render()}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-v],[data-p],[data-t],[data-id],#prev,#next,#refresh,#send,#copy,#mark,#close");
+  if(!t){if(e.target===$("dlg"))$("dlg").close();return}
+  if(t.dataset.v){view=t.dataset.v;render()}
+  else if(t.dataset.p){post=t.dataset.p;render()}
+  else if(t.dataset.t){tone=t.dataset.t;render()}
+  else if(t.dataset.id)openDetail(t.dataset.id);
+  else if(t.id==="prev")step(-1);else if(t.id==="next")step(1);
+  else if(t.id==="refresh")load();else if(t.id==="close")$("dlg").close();
+  else if(t.id==="copy"){navigator.clipboard.writeText($("reply").value).then(()=>{t.textContent="تم النسخ";setTimeout(()=>t.textContent="نسخ الرد",1500)})}
+  else if(t.id==="mark"){done.has(cur)?done.delete(cur):done.add(cur);saveDone();$("dlg").close();render()}
+  else if(t.id==="send"){
+    const x=items.find(i=>i.id===cur),text=$("reply").value.trim(),st=$("st");st.hidden=false;
+    if(!text){st.textContent="اكتبي الرد أولاً.";return}
+    if(!confirm("تبعتي هاد الرد على انستغرام؟\n\n"+text))return;
+    t.disabled=true;st.textContent="جارٍ الإرسال…";
+    fetch(REPLY_API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({comment_id:x.id,post_id:x.post_id,username:x.username,reply_text:text})})
+    .then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);st.textContent="✅ تم إرسال الرد";done.add(cur);saveDone();setTimeout(()=>{$("dlg").close();render()},1100)})
+    .catch(err=>{st.textContent="❌ فشل الإرسال: "+err.message;t.disabled=false});
+  }
+});
+document.addEventListener("input",e=>{if(e.target.id==="q"){q=e.target.value.trim();const p=e.target.selectionStart;render();const n=$("q");n.focus();n.setSelectionRange(p,p)}});
+document.addEventListener("change",e=>{if(e.target.id==="cat"){cat=e.target.value;render()}});
+load();
+</script>
+</body>
+</html>
