@@ -9,8 +9,10 @@
 <style>
 :root{--bg:#eceef6;--card:#fff;--ink:#1c1f3a;--muted:#7b809e;--line:#e6e8f2;--accent:#6a5af0;--soft:#ebe9fe;--on:#fff;--dark:#171a36;
 --pos:#2f9e6e;--neg:#e0922a;--crit:#d85050;--neu:#9096b5;--r:20px;--sh:0 8px 28px rgba(60,70,140,.08);color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#11132a;--card:#1b1e3d;--ink:#eceefc;--muted:#9da2c4;--line:#2b2f55;--accent:#8d80ff;--soft:#2b2870;--on:#12142e;--dark:#0b0d22;
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11132a;--card:#1b1e3d;--ink:#eceefc;--muted:#9da2c4;--line:#2b2f55;--accent:#8d80ff;--soft:#2b2870;--on:#12142e;--dark:#0b0d22;
 --pos:#58cf8f;--neg:#eba448;--crit:#ff7f76;--neu:#9298b6;--sh:none;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#11132a;--card:#1b1e3d;--ink:#eceefc;--muted:#9da2c4;--line:#2b2f55;--accent:#8d80ff;--soft:#2b2870;--on:#12142e;--dark:#0b0d22;
+--pos:#58cf8f;--neg:#eba448;--crit:#ff7f76;--neu:#9298b6;--sh:none;color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;line-height:1.6}
 button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
@@ -90,7 +92,7 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
   <aside class="side">
     <div class="brand"><i>K</i><span>kkcaffee<small>لوحة التعليقات</small></span></div>
     <nav class="nav" id="nav" aria-label="الأقسام"></nav>
-    <div class="sidefoot"><small id="upd">جارٍ التحميل…</small><button class="btn p" data-act="refresh">تحديث</button></div>
+    <div class="sidefoot"><small id="upd">جارٍ التحميل…</small><button class="btn p" data-act="refresh">تحديث</button><button class="btn" data-act="theme">الوضع الفاتح / الداكن</button></div>
   </aside>
   <div class="app">
     <header class="top"><h1 id="ttl"></h1><div class="who" aria-hidden="true">K</div></header>
@@ -114,7 +116,8 @@ const esc = s => { const d = document.createElement("div"); d.textContent = s ??
 const clean = v => { const s = String(v ?? "").trim(); return s.toUpperCase() === "N/A" ? "" : s; };
 let items = [], view = "follow", F = {q:"", tone:"all", post:"all"};
 let done = new Set(); try { done = new Set(JSON.parse(localStorage.getItem("done") || "[]")); } catch {}
-const saveDone = () => localStorage.setItem("done", JSON.stringify([...done]));
+const saveDone = () => { try { localStorage.setItem("done", JSON.stringify([...done])); } catch {} };
+try { const th = localStorage.getItem("theme"); if(th) document.documentElement.dataset.theme = th; } catch {}
 
 function norm(rows){
   const m = new Map();
@@ -236,6 +239,11 @@ document.addEventListener("click", e => {
   const a = t.dataset.act, rp = t.closest(".rp"), x = rp && items.find(i => i.id === rp.dataset.id);
   if(a === "nav") go(t.dataset.v);
   else if(a === "refresh") load();
+  else if(a === "theme"){
+    const next = getComputedStyle(document.documentElement).colorScheme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch {}
+  }
   else if(a === "post"){ F = {q:"", tone:"all", post:t.dataset.p}; go("all"); }
   else if(a === "open"){ const it = items.find(i => i.id === t.dataset.id); $("dlg").innerHTML = panel(it) + '<div class="acts"><button class="btn" data-act="close">إغلاق</button></div>'; $("dlg").showModal(); }
   else if(a === "close") $("dlg").close();
