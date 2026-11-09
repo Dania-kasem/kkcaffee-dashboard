@@ -58,7 +58,7 @@ dialog{width:min(580px,calc(100vw - 28px));border:1px solid var(--line);border-r
 dialog::backdrop{background:rgba(0,0,0,.45)}
 
 .shell{display:grid;grid-template-columns:232px minmax(0,1fr);gap:20px;max-width:1300px;margin:0 auto;padding:20px}
-.shell .app{max-width:none;padding:0}
+.shell .app{max-width:none;padding:0;margin:0;min-width:0;width:100%}
 .side{background:var(--card);border-radius:24px;box-shadow:var(--sh);padding:20px 14px;position:sticky;top:20px;height:calc(100vh - 40px);display:flex;flex-direction:column;gap:18px}
 .brand{display:flex;align-items:center;gap:10px;padding:0 6px;font-weight:700}
 .brand i{width:38px;height:38px;border-radius:12px;background:var(--accent);color:var(--on);display:grid;place-items:center;font-style:normal}
@@ -76,12 +76,14 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 .card.dark{background:var(--dark);color:#fff;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
 .card.dark .big{font-size:3.2rem;line-height:1}.card.dark span{opacity:.7}
 .cols{display:flex;gap:10px;align-items:flex-end;height:190px}.cols .c{flex:1;text-align:center;font-size:.76rem;color:var(--muted)}
-.pill{height:150px;background:var(--soft);border-radius:99px;display:flex;align-items:flex-end;overflow:hidden;margin-bottom:6px}.pill i{width:100%;background:var(--accent);border-radius:99px}
+.pill{height:150px;width:min(44px,100%);background:var(--soft);border-radius:99px;display:flex;align-items:flex-end;overflow:hidden;margin:0 auto 6px}.pill i{width:100%;background:var(--accent);border-radius:99px}
 .donutw{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .donut{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;position:relative;flex:none}
 .donut::before{content:"";position:absolute;inset:20px;background:var(--card);border-radius:50%}
 .donut span{position:relative;text-align:center;font-size:.8rem;color:var(--muted)}.donut b{display:block;font-size:1.7rem;color:var(--ink)}
+.hrs{display:flex;gap:3px;align-items:flex-end;height:120px;direction:ltr}.hrs i{flex:1;background:var(--accent);border-radius:4px 4px 0 0;min-height:2px}.hl{display:flex;justify-content:space-between;font-size:.74rem;color:var(--muted);margin-top:4px;direction:ltr}
 .leg{display:grid;gap:6px;font-size:.9rem}.leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-inline-end:8px}
+@media (max-width:1100px){.shell{grid-template-columns:200px minmax(0,1fr);gap:14px;padding:14px}}
 @media (max-width:860px){.shell{grid-template-columns:1fr;padding:12px}
 .side{position:static;height:auto;border-radius:18px;flex-direction:row;flex-wrap:wrap;align-items:center;padding:10px}
 .side .nav{flex-direction:row;overflow-x:auto;flex:1 1 100%;order:3}.side .nav button{width:auto;white-space:nowrap}.sidefoot{margin:0 auto 0 0;display:flex;align-items:center}}
@@ -90,9 +92,9 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 <body>
 <div class="shell">
   <aside class="side">
-    <div class="brand"><i>K</i><span>kkcaffee<small>لوحة التعليقات</small></span></div>
+    <div class="brand"><i>K</i><span>kkcaffee<small data-i18n="sub"></small></span></div>
     <nav class="nav" id="nav" aria-label="الأقسام"></nav>
-    <div class="sidefoot"><small id="upd">جارٍ التحميل…</small><button class="btn p" data-act="refresh">تحديث</button><button class="btn" data-act="theme">الوضع الفاتح / الداكن</button></div>
+    <div class="sidefoot"><small id="upd"></small><button class="btn p" data-act="refresh" data-i18n="refresh"></button><button class="btn" data-act="theme" data-i18n="theme"></button><button class="btn" data-act="lang" id="langBtn"></button></div>
   </aside>
   <div class="app">
     <header class="top"><h1 id="ttl"></h1><div class="who" aria-hidden="true">K</div></header>
@@ -106,10 +108,27 @@ dialog::backdrop{background:rgba(0,0,0,.45)}
 const API_URL = "https://dania04.app.n8n.cloud/webhook/comments";
 const REPLY_API_URL = "https://dania04.app.n8n.cloud/webhook/reply-comment";
 const OWNER = "kkcaffee";
-const TL = {positive:"إيجابي", negative:"سلبي", critical:"حرج", neutral:"غير مصنف"};
+const I18N = {
+ar:{title:"kkcaffee لوحة التعليقات",sub:"لوحة التعليقات",loading:"جارٍ التحميل…",refresh:"تحديث",theme:"الوضع الفاتح / الداكن",sections:"الأقسام",updated:"آخر تحديث",failed:"فشل التحديث",fetchfail:"تعذر جلب البيانات",fetchhint:"تأكدي أن الـ workflow منشور.",positive:"إيجابي",negative:"سلبي",critical:"حرج",neutral:"غير مصنف",c_food:"جودة الأكل",c_delivery:"التوصيل",c_service:"الخدمة",c_price:"السعر",c_hygiene:"النظافة",c_other:"أخرى",v_follow:"المتابعة",v_all:"كل التعليقات",v_posts:"البوستات",v_overview:"نظرة عامة",post:"بوست",nopost:"بدون بوست",summary:"ملخص",reply:"الرد",send:"إرسال الرد",copy:"نسخ",copied:"تم النسخ",reopen:"إعادة فتح",done:"تم التعامل معه",openig:"فتح بانستغرام",close:"إغلاق",nofollow:"ما في شي بحاجة متابعة حالياً 🎉",search:"ابحثي في التعليقات أو الأسماء",alltones:"كل التقييمات",allposts:"كل البوستات",comments:"تعليق",needsn:"بحاجة متابعة",noneed:"لا يوجد متابعة",noposts:"لا توجد بوستات.",total:"إجمالي التعليقات",last7:"آخر 7 أيام",nodate:"يظهر بعد وصول عمود الوقت",sentiment:"توزيع المشاعر",bycat:"حسب التصنيف",nodata:"لا بيانات",needs:"بحاجة متابعة",openfollow:"افتحي المتابعة",noresults:"ما في نتائج.",empty:"اكتبي الرد أولاً.",confirm:"تبعتي هاد الرد على انستغرام؟",sending:"جارٍ الإرسال…",sent:"✅ تم إرسال الرد",sendfail:"❌ فشل الإرسال: ",r_all:"كل الأوقات",r_24:"آخر 24 ساعة",r_30:"آخر 30 يوم",s_new:"الأحدث أولاً",s_old:"الأقدم أولاً",byhour:"التعليقات حسب ساعة اليوم",byday:"حسب أيام الأسبوع",peak:"أكثر ساعة تفاعل"},
+en:{title:"kkcaffee Comments Dashboard",sub:"Comments dashboard",loading:"Loading…",refresh:"Refresh",theme:"Light / Dark",sections:"Sections",updated:"Last updated",failed:"Update failed",fetchfail:"Could not fetch data",fetchhint:"Make sure the workflow is published.",positive:"Positive",negative:"Negative",critical:"Critical",neutral:"Unclassified",c_food:"Food quality",c_delivery:"Delivery",c_service:"Service",c_price:"Price",c_hygiene:"Hygiene",c_other:"Other",v_follow:"Follow-up",v_all:"All comments",v_posts:"Posts",v_overview:"Overview",post:"Post",nopost:"No post",summary:"Summary",reply:"Reply",send:"Send reply",copy:"Copy",copied:"Copied",reopen:"Reopen",done:"Mark as handled",openig:"Open on Instagram",close:"Close",nofollow:"Nothing needs follow-up right now 🎉",search:"Search comments or names",alltones:"All sentiments",allposts:"All posts",comments:"comments",needsn:"need follow-up",noneed:"No follow-up needed",noposts:"No posts.",total:"Total comments",last7:"Last 7 days",nodate:"Shown once timestamps arrive",sentiment:"Sentiment split",bycat:"By category",nodata:"No data",needs:"Need follow-up",openfollow:"Open follow-up",noresults:"No results.",empty:"Write a reply first.",confirm:"Send this reply on Instagram?",sending:"Sending…",sent:"✅ Reply sent",sendfail:"❌ Send failed: ",r_all:"All time",r_24:"Last 24 hours",r_30:"Last 30 days",s_new:"Newest first",s_old:"Oldest first",byhour:"Comments by hour of day",byday:"By day of week",peak:"Peak hour"}
+};
+let lang = "ar"; try { lang = localStorage.getItem("lang") || "ar"; } catch {}
+const tr = k => I18N[lang][k] ?? k;
+const DAYS = {ar:["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"], en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]};
+let TL = {}, CAT = {}, VIEWS = {}, updState = ["loading"];
+const setUpd = (k, x) => { updState = [k, x]; $("upd").textContent = tr(k) + (x ? " " + x : ""); };
+function applyLang(){
+  document.documentElement.lang = lang; document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  document.title = tr("title");
+  TL = {positive:tr("positive"), negative:tr("negative"), critical:tr("critical"), neutral:tr("neutral")};
+  CAT = {food_quality:tr("c_food"), delivery:tr("c_delivery"), service:tr("c_service"), price:tr("c_price"), hygiene:tr("c_hygiene"), other:tr("c_other")};
+  VIEWS = {follow:tr("v_follow"), all:tr("v_all"), posts:tr("v_posts"), overview:tr("v_overview")};
+  document.querySelectorAll("[data-i18n]").forEach(e => e.textContent = tr(e.dataset.i18n));
+  $("nav").setAttribute("aria-label", tr("sections"));
+  $("langBtn").textContent = lang === "ar" ? "English" : "العربية";
+  setUpd(...updState);
+}
 const TC = {positive:"var(--pos)", negative:"var(--neg)", critical:"var(--crit)", neutral:"var(--neu)"};
-const CAT = {food_quality:"جودة الأكل", delivery:"التوصيل", service:"الخدمة", price:"السعر", hygiene:"النظافة", other:"أخرى"};
-const VIEWS = {follow:"المتابعة", all:"كل التعليقات", posts:"البوستات", overview:"نظرة عامة"};
 
 const $ = id => document.getElementById(id);
 const esc = s => { const d = document.createElement("div"); d.textContent = s ?? ""; return d.innerHTML; };
@@ -137,9 +156,13 @@ function norm(rows){
 const postIds = () => [...new Set(items.map(x => x.post))];
 function postName(p){
   const c = items.find(x => x.post === p && x.caption)?.caption;
-  return c ? (c.length > 30 ? c.slice(0,30) + "…" : c) : (p ? "بوست …" + p.slice(-5) : "بدون بوست");
+  return c ? (c.length > 30 ? c.slice(0,30) + "…" : c) : (p ? tr("post") + " …" + p.slice(-5) : tr("nopost"));
 }
-const fmt = ts => ts ? new Date(ts).toLocaleDateString("en-GB", {day:"2-digit", month:"short"}) : "";
+const LOC = () => lang === "ar" ? "ar-u-nu-latn" : "en-GB";
+const fmt = ts => ts ? new Date(ts).toLocaleString(LOC(), {timeZone:"Asia/Amman", day:"2-digit", month:"short", hour:"2-digit", minute:"2-digit", hour12:false}) : "";
+const ago = ts => { if(!ts) return ""; const s = (ts - Date.now()) / 1000, a = Math.abs(s);
+  const [v, u] = a < 3600 ? [Math.round(s/60), "minute"] : a < 86400 ? [Math.round(s/3600), "hour"] : [Math.round(s/86400), "day"];
+  return new Intl.RelativeTimeFormat(LOC(), {numeric:"auto"}).format(v, u); };
 const needs = x => (x.tone === "negative" || x.tone === "critical") && !done.has(x.id);
 
 async function load(){
@@ -149,10 +172,10 @@ async function load(){
     if(!r.ok) throw new Error("HTTP " + r.status);
     let d = await r.json(); if(!Array.isArray(d)) d = d.data || [d];
     items = norm(d);
-    $("upd").textContent = "آخر تحديث " + new Date().toLocaleTimeString("en-GB", {hour:"2-digit", minute:"2-digit"});
+    setUpd("updated", new Date().toLocaleTimeString("en-GB", {hour:"2-digit", minute:"2-digit"}));
   }catch(e){
-    $("notice").innerHTML = '<div class="notice">تعذر جلب البيانات (' + esc(e.message) + '). تأكدي أن الـ workflow منشور.</div>';
-    $("upd").textContent = "فشل التحديث";
+    $("notice").innerHTML = '<div class="notice">' + tr("fetchfail") + ' (' + esc(e.message) + '). ' + tr("fetchhint") + '</div>';
+    setUpd("failed");
   }
   render();
 }
@@ -160,15 +183,15 @@ async function load(){
 function panel(x){
   return `<div class="rp" data-id="${esc(x.id)}">
     <div class="meta"><span class="user">${esc(x.user)}</span><span class="badge ${x.tone}">${TL[x.tone]}</span>
-      ${x.cat ? `<span>${esc(CAT[x.cat] || x.cat)}</span>` : ""}<span>${esc(postName(x.post))}</span><span>${fmt(x.ts)}</span></div>
+      ${x.cat ? `<span>${esc(CAT[x.cat] || x.cat)}</span>` : ""}<span>${esc(postName(x.post))}</span><span title="${esc(fmt(x.ts))}">${fmt(x.ts)}${x.ts ? " · " + ago(x.ts) : ""}</span></div>
     <p class="quote">${esc(x.text)}</p>
-    ${x.summary ? `<div class="meta">ملخص: ${esc(x.summary)}</div>` : ""}
-    <textarea class="reply" aria-label="الرد">${esc(x.reply)}</textarea>
+    ${x.summary ? `<div class="meta">${tr("summary")}: ${esc(x.summary)}</div>` : ""}
+    <textarea class="reply" aria-label="${tr('reply')}">${esc(x.reply)}</textarea>
     <div class="acts">
-      <button class="btn p" data-act="send">إرسال الرد</button>
-      <button class="btn" data-act="copy">نسخ</button>
-      <button class="btn" data-act="mark">${done.has(x.id) ? "إعادة فتح" : "تم التعامل معه"}</button>
-      ${x.url ? `<a class="btn" href="${esc(x.url)}" target="_blank" rel="noopener">فتح بانستغرام</a>` : ""}
+      <button class="btn p" data-act="send">${tr("send")}</button>
+      <button class="btn" data-act="copy">${tr("copy")}</button>
+      <button class="btn" data-act="mark">${done.has(x.id) ? tr("reopen") : tr("done")}</button>
+      ${x.url ? `<a class="btn" href="${esc(x.url)}" target="_blank" rel="noopener">${tr("openig")}</a>` : ""}
     </div><div class="st" hidden></div></div>`;
 }
 
@@ -190,45 +213,53 @@ function render(){
   if(view === "follow"){
     const list = items.filter(needs).sort((a,b) => (b.tone === "critical") - (a.tone === "critical"));
     m.innerHTML = list.length ? '<div class="grid">' + list.map(x => `<div class="card item ${x.tone}">${panel(x)}</div>`).join("") + "</div>"
-      : '<div class="empty card">ما في شي بحاجة متابعة حالياً 🎉</div>';
+      : '<div class="empty card">' + tr("nofollow") + '</div>';
   } else if(view === "all"){
     const posts = postIds();
-    m.innerHTML = `<div class="tools"><input id="q" type="search" placeholder="ابحثي في التعليقات أو الأسماء" value="${esc(F.q)}">
-      <select id="ft"><option value="all">كل التقييمات</option>${Object.keys(TL).map(t => `<option value="${t}" ${F.tone === t ? "selected" : ""}>${TL[t]}</option>`).join("")}</select>
-      <select id="fp"><option value="all">كل البوستات</option>${posts.map(p => `<option value="${esc(p)}" ${F.post === p ? "selected" : ""}>${esc(postName(p))}</option>`).join("")}</select></div><div id="list"></div>`;
+    m.innerHTML = `<div class="tools"><input id="q" type="search" placeholder="${tr('search')}" value="${esc(F.q)}">
+      <select id="ft"><option value="all">${tr("alltones")}</option>${Object.keys(TL).map(t => `<option value="${t}" ${F.tone === t ? "selected" : ""}>${TL[t]}</option>`).join("")}</select>
+      <select id="fp"><option value="all">${tr("allposts")}</option>${posts.map(p => `<option value="${esc(p)}" ${F.post === p ? "selected" : ""}>${esc(postName(p))}</option>`).join("")}</select><select id="fr">${[["all","r_all"],["24","r_24"],["7","last7"],["30","r_30"]].map(([v,k]) => `<option value="${v}" ${(F.range||"all") === v ? "selected" : ""}>${tr(k)}</option>`).join("")}</select><select id="fs">${[["new","s_new"],["old","s_old"]].map(([v,k]) => `<option value="${v}" ${(F.sort||"new") === v ? "selected" : ""}>${tr(k)}</option>`).join("")}</select></div><div id="list"></div>`;
     renderList();
   } else if(view === "posts"){
     m.innerHTML = '<div class="grid gp">' + postIds().map(p => {
       const l = items.filter(x => x.post === p), n = l.filter(needs).length;
       return `<button class="card postc" data-act="post" data-p="${esc(p)}"><h2>${esc(postName(p))}</h2>${stack(l)}
-        <div class="meta" style="margin-top:10px"><span>${l.length} تعليق</span><span>${n ? n + " بحاجة متابعة" : "لا يوجد متابعة"}</span></div></button>`;
-    }).join("") + "</div>" || '<div class="empty">لا توجد بوستات.</div>';
+        <div class="meta" style="margin-top:10px"><span>${l.length} ${tr("comments")}</span><span>${n ? n + " " + tr("needsn") : tr("noneed")}</span></div></button>`;
+    }).join("") + "</div>" || '<div class="empty">' + tr("noposts") + '</div>';
   } else {
     const n = items.length || 1, c = t => items.filter(x => x.tone === t).length;
     const pp = Math.round(c("positive")/n*100), a2 = pp + Math.round(c("negative")/n*100), a3 = a2 + Math.round(c("critical")/n*100);
     const cats = Object.entries(items.reduce((a,x) => (x.cat && (a[x.cat] = (a[x.cat] || 0) + 1), a), {})).sort((a,b) => b[1] - a[1]);
-    const days = Object.entries(items.filter(x => x.ts).reduce((a,x) => { const k = new Date(x.ts).toISOString().slice(0,10); a[k] = (a[k] || 0) + 1; return a; }, {})).sort().slice(-7);
+    const days = Object.entries(items.filter(x => x.ts).reduce((a,x) => { const k = new Date(x.ts).toLocaleDateString("en-CA", {timeZone:"Asia/Amman"}); a[k] = (a[k] || 0) + 1; return a; }, {})).sort().slice(-7);
     const mx = Math.max(1, ...days.map(d => d[1]));
+    const hrs = Array(24).fill(0), wd = Array(7).fill(0), WI = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+    const tsN = items.filter(x => x.ts).length;
+    items.filter(x => x.ts).forEach(x => { hrs[+new Date(x.ts).toLocaleString("en-GB", {timeZone:"Asia/Amman", hour:"2-digit", hour12:false}) % 24]++; wd[WI[new Date(x.ts).toLocaleDateString("en-US", {timeZone:"Asia/Amman", weekday:"short"})]]++; });
+    const hm = Math.max(1, ...hrs), wm = Math.max(1, ...wd), pk = hrs.indexOf(hm);
     m.innerHTML = `<div class="grid g4">
-      <div class="card stat fill"><b>${items.length}</b><span>إجمالي التعليقات</span></div>
-      <div class="card stat"><b>${c("negative")}</b><span>سلبي</span></div>
-      <div class="card stat"><b>${c("critical")}</b><span>حرج</span></div>
-      <div class="card stat"><b>${items.filter(x => done.has(x.id)).length}</b><span>تم التعامل معه</span></div></div>
+      <div class="card stat fill"><b>${items.length}</b><span>${tr("total")}</span></div>
+      <div class="card stat"><b>${c("negative")}</b><span>${tr("negative")}</span></div>
+      <div class="card stat"><b>${c("critical")}</b><span>${tr("critical")}</span></div>
+      <div class="card stat"><b>${items.filter(x => done.has(x.id)).length}</b><span>${tr("done")}</span></div></div>
       <div class="grid g2" style="margin-top:16px">
-      <div class="card"><h2>آخر 7 أيام</h2>${days.length ? '<div class="cols">' + days.map(([k,v]) => `<div class="c"><div class="pill"><i style="height:${v/mx*100}%"></i></div>${k.slice(5)}</div>`).join("") + "</div>" : '<div class="empty">يظهر بعد وصول عمود الوقت</div>'}</div>
-      <div class="card"><h2>توزيع المشاعر</h2><div class="donutw"><div class="donut" style="background:conic-gradient(var(--pos) 0 ${pp}%,var(--neg) ${pp}% ${a2}%,var(--crit) ${a2}% ${a3}%,var(--neu) ${a3}% 100%)"><span><b>${pp}%</b>إيجابي</span></div>
+      <div class="card"><h2>${tr("last7")}</h2>${days.length ? '<div class="cols">' + days.map(([k,v]) => `<div class="c"><div class="pill"><i style="height:${v/mx*100}%"></i></div>${k.slice(5)}</div>`).join("") + "</div>" : '<div class="empty">' + tr("nodate") + '</div>'}</div>
+      <div class="card"><h2>${tr("byhour")}</h2>${tsN ? `<div class="hrs">${hrs.map((v,h) => `<i title="${h}:00 · ${v}" style="height:${v/hm*100}%"></i>`).join("")}</div><div class="hl"><span>0</span><span>6</span><span>12</span><span>18</span><span>23</span></div><div class="meta" style="margin-top:8px">${tr("peak")}: ${String(pk).padStart(2,"0")}:00</div>` : '<div class="empty">' + tr("nodate") + '</div>'}</div>
+      <div class="card"><h2>${tr("byday")}</h2>${tsN ? wd.map((v,i) => `<div class="row2"><span>${DAYS[lang][i]}</span><div class="bar"><i style="width:${v/wm*100}%;background:var(--accent)"></i></div><span>${v}</span></div>`).join("") : '<div class="empty">' + tr("nodate") + '</div>'}</div>
+      <div class="card"><h2>${tr("sentiment")}</h2><div class="donutw"><div class="donut" style="background:conic-gradient(var(--pos) 0 ${pp}%,var(--neg) ${pp}% ${a2}%,var(--crit) ${a2}% ${a3}%,var(--neu) ${a3}% 100%)"><span><b>${pp}%</b>${tr("positive")}</span></div>
         <div class="leg">${Object.keys(TL).map(t => `<div><i style="background:${TC[t]}"></i>${TL[t]} · ${c(t)}</div>`).join("")}</div></div></div>
-      <div class="card"><h2>حسب التصنيف</h2>${cats.length ? cats.map(([k,v]) => `<div class="row2"><span>${esc(CAT[k] || k)}</span><div class="bar"><i style="width:${v/n*100}%;background:var(--accent)"></i></div><span>${v}</span></div>`).join("") : '<div class="empty">لا بيانات</div>'}</div>
-      <div class="card dark"><span>بحاجة متابعة</span><div class="big">${nf}</div><button class="btn p" data-act="nav" data-v="follow">افتحي المتابعة</button></div></div>`;
+      <div class="card"><h2>${tr("bycat")}</h2>${cats.length ? cats.map(([k,v]) => `<div class="row2"><span>${esc(CAT[k] || k)}</span><div class="bar"><i style="width:${v/n*100}%;background:var(--accent)"></i></div><span>${v}</span></div>`).join("") : '<div class="empty">' + tr("nodata") + '</div>'}</div>
+      <div class="card dark"><span>${tr("needs")}</span><div class="big">${nf}</div><button class="btn p" data-act="nav" data-v="follow">${tr("openfollow")}</button></div></div>`;
   }
 }
 
 function renderList(){
   const q = F.q.toLowerCase();
-  const l = items.filter(x => (F.tone === "all" || x.tone === F.tone) && (F.post === "all" || x.post === F.post) && (!q || (x.text + " " + x.user).toLowerCase().includes(q)));
+  const lim = {"24":864e5, "7":6048e5, "30":2592e6}[F.range || "all"];
+  let l = items.filter(x => (F.tone === "all" || x.tone === F.tone) && (F.post === "all" || x.post === F.post) && (!q || (x.text + " " + x.user).toLowerCase().includes(q)) && (!lim || (x.ts && Date.now() - x.ts <= lim)));
+  if(F.sort === "old") l = l.slice().reverse();
   $("list").innerHTML = l.length ? l.map(x => `<button class="lrow ${done.has(x.id) ? "done" : ""}" data-act="open" data-id="${esc(x.id)}">
-    <div class="meta"><span class="user">${esc(x.user)}</span><span class="badge ${x.tone}">${TL[x.tone]}</span><span>${esc(postName(x.post))}</span><span>${fmt(x.ts)}</span></div><p>${esc(x.text)}</p></button>`).join("")
-    : '<div class="empty">ما في نتائج.</div>';
+    <div class="meta"><span class="user">${esc(x.user)}</span><span class="badge ${x.tone}">${TL[x.tone]}</span><span>${esc(postName(x.post))}</span><span title="${esc(fmt(x.ts))}">${fmt(x.ts)}${x.ts ? " · " + ago(x.ts) : ""}</span></div><p>${esc(x.text)}</p></button>`).join("")
+    : '<div class="empty">' + tr("noresults") + '</div>';
 }
 
 function go(v){ location.hash = v; }
@@ -239,30 +270,31 @@ document.addEventListener("click", e => {
   const a = t.dataset.act, rp = t.closest(".rp"), x = rp && items.find(i => i.id === rp.dataset.id);
   if(a === "nav") go(t.dataset.v);
   else if(a === "refresh") load();
+  else if(a === "lang"){ lang = lang === "ar" ? "en" : "ar"; try { localStorage.setItem("lang", lang); } catch {} applyLang(); render(); }
   else if(a === "theme"){
     const next = getComputedStyle(document.documentElement).colorScheme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
     try { localStorage.setItem("theme", next); } catch {}
   }
   else if(a === "post"){ F = {q:"", tone:"all", post:t.dataset.p}; go("all"); }
-  else if(a === "open"){ const it = items.find(i => i.id === t.dataset.id); $("dlg").innerHTML = panel(it) + '<div class="acts"><button class="btn" data-act="close">إغلاق</button></div>'; $("dlg").showModal(); }
+  else if(a === "open"){ const it = items.find(i => i.id === t.dataset.id); $("dlg").innerHTML = panel(it) + '<div class="acts"><button class="btn" data-act="close">' + tr("close") + '</button></div>'; $("dlg").showModal(); }
   else if(a === "close") $("dlg").close();
-  else if(a === "copy") navigator.clipboard.writeText(rp.querySelector(".reply").value).then(() => { t.textContent = "تم النسخ"; setTimeout(() => t.textContent = "نسخ", 1400); });
+  else if(a === "copy") navigator.clipboard.writeText(rp.querySelector(".reply").value).then(() => { t.textContent = tr("copied"); setTimeout(() => t.textContent = tr("copy"), 1400); });
   else if(a === "mark"){ done.has(x.id) ? done.delete(x.id) : done.add(x.id); saveDone(); $("dlg").open && $("dlg").close(); render(); }
   else if(a === "send"){
     const text = rp.querySelector(".reply").value.trim(), st = rp.querySelector(".st"); st.hidden = false;
-    if(!text){ st.textContent = "اكتبي الرد أولاً."; return; }
-    if(!confirm("تبعتي هاد الرد على انستغرام؟\n\n" + text)) return;
-    t.disabled = true; st.textContent = "جارٍ الإرسال…";
+    if(!text){ st.textContent = tr("empty"); return; }
+    if(!confirm(tr("confirm") + "\n\n" + text)) return;
+    t.disabled = true; st.textContent = tr("sending");
     fetch(REPLY_API_URL, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({comment_id:x.id, post_id:x.post, username:x.user, reply_text:text})})
-      .then(r => { if(!r.ok) throw new Error("HTTP " + r.status); st.textContent = "✅ تم إرسال الرد"; done.add(x.id); saveDone(); setTimeout(() => { $("dlg").open && $("dlg").close(); render(); }, 1000); })
-      .catch(err => { st.textContent = "❌ فشل الإرسال: " + err.message; t.disabled = false; });
+      .then(r => { if(!r.ok) throw new Error("HTTP " + r.status); st.textContent = tr("sent"); done.add(x.id); saveDone(); setTimeout(() => { $("dlg").open && $("dlg").close(); render(); }, 1000); })
+      .catch(err => { st.textContent = tr("sendfail") + err.message; t.disabled = false; });
   }
 });
 document.addEventListener("input", e => { if(e.target.id === "q"){ F.q = e.target.value.trim(); renderList(); } });
-document.addEventListener("change", e => { if(e.target.id === "ft"){ F.tone = e.target.value; renderList(); } if(e.target.id === "fp"){ F.post = e.target.value; renderList(); } });
+document.addEventListener("change", e => { if(e.target.id === "ft"){ F.tone = e.target.value; renderList(); } if(e.target.id === "fp"){ F.post = e.target.value; renderList(); } if(e.target.id === "fr"){ F.range = e.target.value; renderList(); } if(e.target.id === "fs"){ F.sort = e.target.value; renderList(); } });
 window.addEventListener("hashchange", route);
-route(); load();
+applyLang(); route(); load();
 </script>
 </body>
 </html>
