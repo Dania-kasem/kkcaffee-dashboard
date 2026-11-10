@@ -3,301 +3,242 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>kkcaffee comments</title>
+<title>تعليقات kkcaffee</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#eceef6;--card:#fff;--ink:#1c1f3a;--muted:#7b809e;--line:#e6e8f2;--accent:#6a5af0;--soft:#ebe9fe;--on:#fff;--dark:#171a36;
---pos:#2f9e6e;--neg:#e0922a;--crit:#d85050;--neu:#9096b5;--r:20px;--sh:0 8px 28px rgba(60,70,140,.08);color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11132a;--card:#1b1e3d;--ink:#eceefc;--muted:#9da2c4;--line:#2b2f55;--accent:#8d80ff;--soft:#2b2870;--on:#12142e;--dark:#0b0d22;
---pos:#58cf8f;--neg:#eba448;--crit:#ff7f76;--neu:#9298b6;--sh:none;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#11132a;--card:#1b1e3d;--ink:#eceefc;--muted:#9da2c4;--line:#2b2f55;--accent:#8d80ff;--soft:#2b2870;--on:#12142e;--dark:#0b0d22;
---pos:#58cf8f;--neg:#eba448;--crit:#ff7f76;--neu:#9298b6;--sh:none;color-scheme:dark}
+:root{
+  --bg:#eef1ee; --panel:#fbfcfb; --ink:#1f2a27; --muted:#66736e; --line:#dbe1dd;
+  --accent:#0f6b5c; --accent-soft:#dcefe9;
+  --pos:#2e7d4f; --neg:#b86e0a; --crit:#b3261e;
+  --pos-soft:#e1f1e6; --neg-soft:#f8ecd6; --crit-soft:#f8e0de;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#131917; --panel:#1b2320; --ink:#e7eeea; --muted:#93a39c; --line:#2b3632;
+    --accent:#4cc3aa; --accent-soft:#1d3a33;
+    --pos:#6fcf94; --neg:#e3a24a; --crit:#ff7b72;
+    --pos-soft:#1b3326; --neg-soft:#3a2d16; --crit-soft:#3c1f1d;
+  }
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;line-height:1.6}
-button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+html,body{margin:0;height:100%}
+body{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+button{font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.app{max-width:1120px;margin:0 auto;padding:18px 16px 56px}
-.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px}
-.top h1{margin:0;font-size:1.3rem;font-weight:700;flex:1}.top small{display:block;color:var(--muted);font-weight:400;font-size:.8rem}
-.nav{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;overflow-x:auto;max-width:100%}
-.nav button{border:0;background:none;border-radius:999px;padding:7px 16px;white-space:nowrap;color:var(--muted);font-weight:500}
-.nav button[aria-current=page]{background:var(--accent);color:var(--on)}
-.nav b{margin-inline-start:6px;font-size:.8rem;background:var(--crit);color:#fff;border-radius:99px;padding:0 7px}
-.ghost{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:7px 14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px}
-.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.gp{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.stat b{display:block;font-size:1.9rem;line-height:1.2}.stat span{color:var(--muted);font-size:.88rem}
-h2{font-size:1.05rem;margin:0 0 12px}
-.badge{display:inline-block;font-size:.78rem;padding:1px 10px;border-radius:99px;font-weight:600;background:var(--soft);color:var(--accent)}
-.badge.positive{background:color-mix(in srgb,var(--pos) 16%,transparent);color:var(--pos)}
-.badge.negative{background:color-mix(in srgb,var(--neg) 18%,transparent);color:var(--neg)}
-.badge.critical{background:color-mix(in srgb,var(--crit) 16%,transparent);color:var(--crit)}
-.badge.neutral{background:color-mix(in srgb,var(--neu) 20%,transparent);color:var(--neu)}
-.bar{display:flex;height:9px;border-radius:99px;overflow:hidden;background:var(--line)}.bar i{display:block}
-.row2{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:.9rem}.row2 span:first-child{width:86px;color:var(--muted)}.row2 .bar{flex:1}
-.meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:.84rem}
-.user{font-weight:600;color:var(--ink);direction:ltr;unicode-bidi:plaintext}
-.quote{font-size:1.08rem;margin:10px 0;padding-inline-start:12px;border-inline-start:3px solid var(--line)}
-.reply{width:100%;min-height:84px;resize:vertical;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px}
-.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.btn{border:1px solid var(--line);background:none;border-radius:10px;padding:7px 16px}
-.btn.p{background:var(--accent);border-color:var(--accent);color:var(--on)}.btn[disabled]{opacity:.5}
-a.btn{text-decoration:none;display:inline-block}
-.st{margin-top:8px;font-size:.88rem;color:var(--muted)}
-.item{border-inline-start:4px solid var(--neu)}.item.positive{border-inline-start-color:var(--pos)}.item.negative{border-inline-start-color:var(--neg)}.item.critical{border-inline-start-color:var(--crit)}
-.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.tools input{flex:1;min-width:180px}
-.tools input,.tools select{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
-.lrow{display:block;width:100%;text-align:start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin-bottom:8px}
-.lrow:hover{border-color:var(--accent)}.lrow p{margin:2px 0 0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.lrow.done{opacity:.55}
-.empty,.notice{text-align:center;color:var(--muted);padding:34px 10px}
-.notice{background:color-mix(in srgb,var(--neg) 14%,transparent);color:var(--neg);border-radius:10px;padding:9px 14px;margin-bottom:12px;text-align:start}
-.postc{text-align:start;width:100%}.postc:hover{border-color:var(--accent)}
-dialog{width:min(580px,calc(100vw - 28px));border:1px solid var(--line);border-radius:var(--r);background:var(--card);color:var(--ink);padding:18px}
+.app{max-width:1180px;margin:0 auto;padding:24px 20px 40px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+h1{font-size:1.5rem;margin:0;font-weight:600}
+.sub{color:var(--muted);font-size:.9rem;margin:2px 0 0}
+.refresh{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:9px 18px;font-weight:500}
+.refresh[disabled]{opacity:.6;cursor:wait}
+@media (prefers-color-scheme: dark){.refresh{color:#0d1412}}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:.92rem}
+.tab b{font-weight:600;margin-inline-start:6px}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.posts{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.posts .hint{color:var(--muted);font-size:.88rem;margin-inline-end:4px}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-size:.9rem}
+.chip small{color:var(--muted);margin-inline-start:6px}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;align-items:start}
+.col{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.col-head{padding:14px 16px;border-bottom:1px solid var(--line)}
+.col-head h2{margin:0;font-size:1.05rem;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.rename{background:none;border:0;color:var(--muted);font-size:.82rem;text-decoration:underline;padding:0}
+.mini{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.col-body{max-height:64vh;overflow:auto}
+.row{display:block;width:100%;text-align:start;background:none;border:0;border-bottom:1px solid var(--line);padding:12px 16px;border-inline-start:4px solid transparent}
+.row:last-child{border-bottom:0}
+.row:hover{background:var(--bg)}
+.row.positive{border-inline-start-color:var(--pos)}
+.row.negative{border-inline-start-color:var(--neg)}
+.row.critical{border-inline-start-color:var(--crit)}
+.row .top{display:flex;justify-content:space-between;gap:8px;font-size:.86rem;color:var(--muted)}
+.row .user{font-weight:600;color:var(--ink);direction:ltr;unicode-bidi:plaintext}
+.row .text{margin:4px 0 0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.done .text,.done .user{opacity:.5}
+.badge{display:inline-block;font-size:.8rem;padding:1px 10px;border-radius:999px;font-weight:500}
+.badge.positive{background:var(--pos-soft);color:var(--pos)}
+.badge.negative{background:var(--neg-soft);color:var(--neg)}
+.badge.critical{background:var(--crit-soft);color:var(--crit)}
+.badge.auto{background:#e8f0fe;color:#1a56db;border:1px solid #c3d4fd}
+.badge.manual{background:#f3f4f6;color:#66736e;border:1px solid var(--line)}
+.badge.telegram{background:#f8e0de;color:#b3261e}
+dialog{width:min(560px,calc(100vw - 32px));border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--ink);padding:22px}
 dialog::backdrop{background:rgba(0,0,0,.45)}
-
-.shell{display:grid;grid-template-columns:232px minmax(0,1fr);gap:20px;max-width:1300px;margin:0 auto;padding:20px}
-.shell .app{max-width:none;padding:0;margin:0;min-width:0;width:100%}
-.side{background:var(--card);border-radius:24px;box-shadow:var(--sh);padding:20px 14px;position:sticky;top:20px;height:calc(100vh - 40px);display:flex;flex-direction:column;gap:18px}
-.brand{display:flex;align-items:center;gap:10px;padding:0 6px;font-weight:700}
-.brand i{width:38px;height:38px;border-radius:12px;background:var(--accent);color:var(--on);display:grid;place-items:center;font-style:normal}
-.brand small{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
-.side .nav{flex-direction:column;background:none;border:0;padding:0;border-radius:0;overflow:visible;gap:4px}
-.side .nav button{display:flex;align-items:center;gap:10px;width:100%;border-radius:12px;padding:10px 12px;text-align:start;color:var(--muted)}
-.side .nav button:hover{background:var(--bg)}
-.side .nav button[aria-current=page]{background:var(--soft);color:var(--accent);font-weight:600}
-.side .nav svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.side .nav b{margin-inline-start:auto}
-.sidefoot{margin-top:auto;display:grid;gap:8px}.sidefoot small{color:var(--muted);text-align:center}
-.who{width:40px;height:40px;border-radius:50%;background:var(--soft);color:var(--accent);display:grid;place-items:center;font-weight:700}
-.card{border:0;box-shadow:var(--sh)}.lrow,.tools input,.tools select{border:0;box-shadow:var(--sh)}
-.stat b{font-size:2.3rem}.stat.fill{background:var(--accent);color:var(--on)}.stat.fill span{color:inherit;opacity:.85}
-.card.dark{background:var(--dark);color:#fff;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
-.card.dark .big{font-size:3.2rem;line-height:1}.card.dark span{opacity:.7}
-.cols{display:flex;gap:10px;align-items:flex-end;height:190px}.cols .c{flex:1;text-align:center;font-size:.76rem;color:var(--muted)}
-.pill{height:150px;width:min(44px,100%);background:var(--soft);border-radius:99px;display:flex;align-items:flex-end;overflow:hidden;margin:0 auto 6px}.pill i{width:100%;background:var(--accent);border-radius:99px}
-.donutw{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.donut{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;position:relative;flex:none}
-.donut::before{content:"";position:absolute;inset:20px;background:var(--card);border-radius:50%}
-.donut span{position:relative;text-align:center;font-size:.8rem;color:var(--muted)}.donut b{display:block;font-size:1.7rem;color:var(--ink)}
-.hrs{display:flex;gap:3px;align-items:flex-end;height:120px;direction:ltr}.hrs i{flex:1;background:var(--accent);border-radius:4px 4px 0 0;min-height:2px}.hl{display:flex;justify-content:space-between;font-size:.74rem;color:var(--muted);margin-top:4px;direction:ltr}
-.leg{display:grid;gap:6px;font-size:.9rem}.leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-inline-end:8px}
-@media (max-width:1100px){.shell{grid-template-columns:200px minmax(0,1fr);gap:14px;padding:14px}}
-@media (max-width:860px){.shell{grid-template-columns:1fr;padding:12px}
-.side{position:static;height:auto;border-radius:18px;flex-direction:row;flex-wrap:wrap;align-items:center;padding:10px}
-.side .nav{flex-direction:row;overflow-x:auto;flex:1 1 100%;order:3}.side .nav button{width:auto;white-space:nowrap}.sidefoot{margin:0 auto 0 0;display:flex;align-items:center}}
+dialog h2{margin:0 0 4px;font-size:1.15rem;direction:ltr;text-align:right;unicode-bidi:plaintext}
+.meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:.88rem;margin-bottom:16px}
+.quote{font-size:1.15rem;margin:0 0 18px;padding-inline-start:14px;border-inline-start:3px solid var(--line)}
+.label{font-size:.85rem;color:var(--muted);margin:14px 0 4px}
+.reply{width:100%;min-height:110px;resize:vertical;font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{border:1px solid var(--line);background:transparent;border-radius:10px;padding:8px 16px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme: dark){.btn.primary{color:#0d1412}}
+.alert{margin-top:14px;padding:10px 14px;border-radius:10px;background:var(--crit-soft);color:var(--crit);font-size:.92rem}
+.empty,.notice{padding:28px 20px;text-align:center;color:var(--muted)}
+.notice{background:var(--neg-soft);color:var(--neg);border-radius:10px;padding:10px 14px;margin-bottom:14px;text-align:start;font-size:.9rem}
 </style>
 </head>
 <body>
-<div class="shell">
-  <aside class="side">
-    <div class="brand"><i>K</i><span>kkcaffee<small data-i18n="sub"></small></span></div>
-    <nav class="nav" id="nav" aria-label="الأقسام"></nav>
-    <div class="sidefoot"><small id="upd"></small><button class="btn p" data-act="refresh" data-i18n="refresh"></button><button class="btn" data-act="theme" data-i18n="theme"></button><button class="btn" data-act="lang" id="langBtn"></button></div>
-  </aside>
-  <div class="app">
-    <header class="top"><h1 id="ttl"></h1><div class="who" aria-hidden="true">K</div></header>
-    <div id="notice"></div>
-    <main id="main"></main>
-  </div>
+<div class="app">
+  <header>
+    <div>
+      <h1>تعليقات kkcaffee</h1>
+      <p class="sub" id="updated">جارٍ التحميل…</p>
+    </div>
+    <button class="refresh" id="refresh">تحديث</button>
+  </header>
+  <div id="notice"></div>
+  <div class="posts" id="posts"></div>
+  <div class="tabs" id="tabs" role="group" aria-label="تصفية حسب التقييم"></div>
+  <div class="cols" id="cols"></div>
 </div>
 <dialog id="dlg"></dialog>
-
 <script>
+// ضعي رابط الـ Production لـ webhook القراءة من n8n هنا.
+// إذا تركتيه فاضي، بتظهر بيانات تجريبية للتصميم.
 const API_URL = "https://dania04.app.n8n.cloud/webhook/comments";
-const REPLY_API_URL = "https://dania04.app.n8n.cloud/webhook/reply-comment";
-const OWNER = "kkcaffee";
-const I18N = {
-ar:{title:"kkcaffee لوحة التعليقات",sub:"لوحة التعليقات",loading:"جارٍ التحميل…",refresh:"تحديث",theme:"الوضع الفاتح / الداكن",sections:"الأقسام",updated:"آخر تحديث",failed:"فشل التحديث",fetchfail:"تعذر جلب البيانات",fetchhint:"تأكدي أن الـ workflow منشور.",positive:"إيجابي",negative:"سلبي",critical:"حرج",neutral:"غير مصنف",c_food:"جودة الأكل",c_delivery:"التوصيل",c_service:"الخدمة",c_price:"السعر",c_hygiene:"النظافة",c_other:"أخرى",v_follow:"المتابعة",v_all:"كل التعليقات",v_posts:"البوستات",v_overview:"نظرة عامة",post:"بوست",nopost:"بدون بوست",summary:"ملخص",reply:"الرد",send:"إرسال الرد",copy:"نسخ",copied:"تم النسخ",reopen:"إعادة فتح",done:"تم التعامل معه",openig:"فتح بانستغرام",close:"إغلاق",nofollow:"ما في شي بحاجة متابعة حالياً 🎉",search:"ابحثي في التعليقات أو الأسماء",alltones:"كل التقييمات",allposts:"كل البوستات",comments:"تعليق",needsn:"بحاجة متابعة",noneed:"لا يوجد متابعة",noposts:"لا توجد بوستات.",total:"إجمالي التعليقات",last7:"آخر 7 أيام",nodate:"يظهر بعد وصول عمود الوقت",sentiment:"توزيع المشاعر",bycat:"حسب التصنيف",nodata:"لا بيانات",needs:"بحاجة متابعة",openfollow:"افتحي المتابعة",noresults:"ما في نتائج.",empty:"اكتبي الرد أولاً.",confirm:"تبعتي هاد الرد على انستغرام؟",sending:"جارٍ الإرسال…",sent:"✅ تم إرسال الرد",sendfail:"❌ فشل الإرسال: ",r_all:"كل الأوقات",r_24:"آخر 24 ساعة",r_30:"آخر 30 يوم",s_new:"الأحدث أولاً",s_old:"الأقدم أولاً",byhour:"التعليقات حسب ساعة اليوم",byday:"حسب أيام الأسبوع",peak:"أكثر ساعة تفاعل",pin:"أدخلي رمز الدخول",badpin:"رمز الدخول غير صحيح"},
-en:{title:"kkcaffee Comments Dashboard",sub:"Comments dashboard",loading:"Loading…",refresh:"Refresh",theme:"Light / Dark",sections:"Sections",updated:"Last updated",failed:"Update failed",fetchfail:"Could not fetch data",fetchhint:"Make sure the workflow is published.",positive:"Positive",negative:"Negative",critical:"Critical",neutral:"Unclassified",c_food:"Food quality",c_delivery:"Delivery",c_service:"Service",c_price:"Price",c_hygiene:"Hygiene",c_other:"Other",v_follow:"Follow-up",v_all:"All comments",v_posts:"Posts",v_overview:"Overview",post:"Post",nopost:"No post",summary:"Summary",reply:"Reply",send:"Send reply",copy:"Copy",copied:"Copied",reopen:"Reopen",done:"Mark as handled",openig:"Open on Instagram",close:"Close",nofollow:"Nothing needs follow-up right now 🎉",search:"Search comments or names",alltones:"All sentiments",allposts:"All posts",comments:"comments",needsn:"need follow-up",noneed:"No follow-up needed",noposts:"No posts.",total:"Total comments",last7:"Last 7 days",nodate:"Shown once timestamps arrive",sentiment:"Sentiment split",bycat:"By category",nodata:"No data",needs:"Need follow-up",openfollow:"Open follow-up",noresults:"No results.",empty:"Write a reply first.",confirm:"Send this reply on Instagram?",sending:"Sending…",sent:"✅ Reply sent",sendfail:"❌ Send failed: ",r_all:"All time",r_24:"Last 24 hours",r_30:"Last 30 days",s_new:"Newest first",s_old:"Oldest first",byhour:"Comments by hour of day",byday:"By day of week",peak:"Peak hour",pin:"Enter the access code",badpin:"Wrong access code"}
-};
-let lang = "ar"; try { lang = localStorage.getItem("lang") || "ar"; } catch {}
-const tr = k => I18N[lang][k] ?? k;
-const key = () => { let k = ""; try { k = sessionStorage.getItem("k") || ""; } catch {} if(!k){ k = prompt(tr("pin")) || ""; try { if(k) sessionStorage.setItem("k", k); } catch {} } return k; };
-const badKey = () => { try { sessionStorage.removeItem("k"); } catch {} };
-const DAYS = {ar:["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"], en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]};
-let TL = {}, CAT = {}, VIEWS = {}, updState = ["loading"];
-const setUpd = (k, x) => { updState = [k, x]; $("upd").textContent = tr(k) + (x ? " " + x : ""); };
-function applyLang(){
-  document.documentElement.lang = lang; document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-  document.title = tr("title");
-  TL = {positive:tr("positive"), negative:tr("negative"), critical:tr("critical"), neutral:tr("neutral")};
-  CAT = {food_quality:tr("c_food"), delivery:tr("c_delivery"), service:tr("c_service"), price:tr("c_price"), hygiene:tr("c_hygiene"), other:tr("c_other")};
-  VIEWS = {follow:tr("v_follow"), all:tr("v_all"), posts:tr("v_posts"), overview:tr("v_overview")};
-  document.querySelectorAll("[data-i18n]").forEach(e => e.textContent = tr(e.dataset.i18n));
-  $("nav").setAttribute("aria-label", tr("sections"));
-  $("langBtn").textContent = lang === "ar" ? "English" : "العربية";
-  setUpd(...updState);
-}
-const TC = {positive:"var(--pos)", negative:"var(--neg)", critical:"var(--crit)", neutral:"var(--neu)"};
-
+const LABELS = { all:"الكل", positive:"إيجابي", negative:"سلبي", critical:"حرج" };
+const MAX_POSTS = 3, NONE = "unknown";
+const DEMO = [
+  { username:"mohammad_ali", comment_text:"الأكل كان ساخن ولذيذ والخدمة ممتازة", sentiment:"positive", category:"food_quality", summary:"طعام وخدمة ممتازة", suggested_reply:"يسعدنا أن التجربة أعجبتك!", action_required:"auto_reply", comment_id:"d1", post_id:"111" },
+  { username:"sara.k", comment_text:"التوصيل تأخر ساعة والقهوة وصلت باردة", sentiment:"negative", category:"delivery", summary:"تأخر التوصيل", suggested_reply:"نعتذر عن التأخير.", action_required:"manager_review", comment_id:"d2", post_id:"222" },
+  { username:"omar_77", comment_text:"وجدت شعرة في الطلب", sentiment:"critical", category:"hygiene", summary:"شكوى نظافة", suggested_reply:"نعتذر بشدة، راسلنا على الخاص.", action_required:"escalate", comment_id:"d3", post_id:"222" },
+  { username:"lina", comment_text:"جميل جداً", sentiment:"positive", category:"other", summary:"إعجاب", suggested_reply:"شكراً لك!", action_required:"auto_reply", confidence:98, should_auto_reply:true, reply_id:"1799701159111616", comment_id:"d4", post_id:"333" }
+];
+let items = [], filter = "all", current = null;
+const store = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
+const done = new Set(store("done", []));
+let pinned = store("pinned", []);
+let names = store("names", {});
 const $ = id => document.getElementById(id);
+const save = () => { localStorage.setItem("done", JSON.stringify([...done])); localStorage.setItem("pinned", JSON.stringify(pinned)); localStorage.setItem("names", JSON.stringify(names)); };
+const isAuto = r => {
+  const a = String(r.action_required||'').toLowerCase();
+  if (a === 'auto_reply') return true;
+  if (r.should_auto_reply === true || String(r.should_auto_reply).toLowerCase() === 'true') return true;
+  if (r.already_replied === true || String(r.already_replied).toLowerCase() === 'true') return true;
+  if (r.reply_id && String(r.reply_id) !== 'N/A' && String(r.reply_id).trim() !== '') return true;
+  return false;
+};
+const isTelegram = r => {
+  const a = String(r.action_required||'').toLowerCase();
+  if (a === 'escalate_to_manager') return true;
+  if (r.send_telegram === true || String(r.send_telegram).toLowerCase() === 'true') return true;
+  return false;
+};
+const autoLabel = r => isAuto(r) ? '🤖 Auto Reply' : (isTelegram(r) ? '🚨 Telegram' : '👀 بانتظار المراجعة');
+const norm = s => ["positive","negative","critical"].find(k => String(s||"").toLowerCase().includes(k)) || "positive";
 const esc = s => { const d = document.createElement("div"); d.textContent = s ?? ""; return d.innerHTML; };
-const clean = v => { const s = String(v ?? "").trim(); return s.toUpperCase() === "N/A" ? "" : s; };
-let items = [], view = "follow", F = {q:"", tone:"all", post:"all"};
-let done = new Set(); try { done = new Set(JSON.parse(localStorage.getItem("done") || "[]")); } catch {}
-const saveDone = () => { try { localStorage.setItem("done", JSON.stringify([...done])); } catch {} };
-try { const th = localStorage.getItem("theme"); if(th) document.documentElement.dataset.theme = th; } catch {}
-
-function norm(rows){
-  const m = new Map();
-  rows.forEach((r,i) => {
-    const id = clean(r.comment_id) || "row"+i, text = clean(r.comment_text), user = clean(r.username);
-    if(!text || user.toLowerCase() === OWNER) return;
-    const s = String(r.sentiment || "").toLowerCase();
-    m.set(id, { id, user: user || "—", text,
-      tone: ["positive","negative","critical"].find(k => s.includes(k)) || "neutral",
-      cat: clean(r.category).toLowerCase(), summary: clean(r.summary), reply: clean(r.suggested_reply),
-      post: clean(r.post_id), caption: clean(r.post_caption), purl: clean(r.post_url), url: clean(r.comment_url),
-      ts: Date.parse(r.timestamp) || 0, order: i });
-  });
-  return [...m.values()].sort((a,b) => (b.ts - a.ts) || (b.order - a.order));
-}
-
-const postIds = () => [...new Set(items.map(x => x.post))];
-function postName(p){
-  const c = items.find(x => x.post === p && x.caption)?.caption;
-  return c ? (c.length > 30 ? c.slice(0,30) + "…" : c) : (p ? tr("post") + " …" + p.slice(-5) : tr("nopost"));
-}
-const LOC = () => lang === "ar" ? "ar-u-nu-latn" : "en-GB";
-const fmt = ts => ts ? new Date(ts).toLocaleString(LOC(), {timeZone:"Asia/Amman", day:"2-digit", month:"short", hour:"2-digit", minute:"2-digit", hour12:false}) : "";
-const ago = ts => { if(!ts) return ""; const s = (ts - Date.now()) / 1000, a = Math.abs(s);
-  const [v, u] = a < 3600 ? [Math.round(s/60), "minute"] : a < 86400 ? [Math.round(s/3600), "hour"] : [Math.round(s/86400), "day"];
-  return new Intl.RelativeTimeFormat(LOC(), {numeric:"auto"}).format(v, u); };
-const needs = x => (x.tone === "negative" || x.tone === "critical") && !done.has(x.id);
-
+const pid = r => (r.post_id && String(r.post_id) !== "N/A") ? String(r.post_id) : NONE;
+const postName = id => names[id] || (id === NONE ? "تعليقات بدون بوست" : "بوست …" + id.slice(-5));
 async function load(){
+  $("refresh").disabled = true;
   $("notice").innerHTML = "";
   try{
-    const r = await fetch(API_URL, {headers:{"X-Dashboard-Key": key()}});
-    if(r.status === 401 || r.status === 403){ badKey(); throw new Error(tr("badpin")); }
-    if(!r.ok) throw new Error("HTTP " + r.status);
-    let d = await r.json(); if(!Array.isArray(d)) d = d.data || [d];
-    items = norm(d);
-    setUpd("updated", new Date().toLocaleTimeString("en-GB", {hour:"2-digit", minute:"2-digit"}));
+    let data = DEMO;
+    if(API_URL){
+      const r = await fetch(API_URL);
+      if(!r.ok) throw new Error("HTTP " + r.status);
+      data = await r.json();
+      if(!Array.isArray(data)) data = data.data || [data];
+    } else {
+      $("notice").innerHTML = '<div class="notice">هاي بيانات تجريبية. حطي رابط n8n في <b>API_URL</b> لعرض التعليقات الحقيقية.</div>';
+    }
+    items = data
+      .map((r,i) => ({ ...r, id: r.comment_id && r.comment_id !== "N/A" ? String(r.comment_id) : "row"+i, tone: norm(r.sentiment), post: pid(r) }))
+      .filter(r => r.comment_text)
+      .reverse();
+    $("updated").textContent = "آخر تحديث " + new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
   }catch(e){
-    $("notice").innerHTML = '<div class="notice">' + tr("fetchfail") + ' (' + esc(e.message) + '). ' + tr("fetchhint") + '</div>';
-    setUpd("failed");
+    $("notice").innerHTML = '<div class="notice">تعذر جلب البيانات من n8n (' + esc(e.message) + '). تأكدي أن الـ workflow منشور وأن CORS مفعّل.</div>';
+    $("updated").textContent = "فشل التحديث";
   }
+  $("refresh").disabled = false;
   render();
 }
-
-function panel(x){
-  return `<div class="rp" data-id="${esc(x.id)}">
-    <div class="meta"><span class="user">${esc(x.user)}</span><span class="badge ${x.tone}">${TL[x.tone]}</span>
-      ${x.cat ? `<span>${esc(CAT[x.cat] || x.cat)}</span>` : ""}<span>${esc(postName(x.post))}</span><span title="${esc(fmt(x.ts))}">${fmt(x.ts)}${x.ts ? " · " + ago(x.ts) : ""}</span></div>
-    <p class="quote">${esc(x.text)}</p>
-    ${x.summary ? `<div class="meta">${tr("summary")}: ${esc(x.summary)}</div>` : ""}
-    <textarea class="reply" aria-label="${tr('reply')}">${esc(x.reply)}</textarea>
-    <div class="acts">
-      <button class="btn p" data-act="send">${tr("send")}</button>
-      <button class="btn" data-act="copy">${tr("copy")}</button>
-      <button class="btn" data-act="mark">${done.has(x.id) ? tr("reopen") : tr("done")}</button>
-      ${x.url ? `<a class="btn" href="${esc(x.url)}" target="_blank" rel="noopener">${tr("openig")}</a>` : ""}
-    </div><div class="st" hidden></div></div>`;
+// أحدث البوستات أولاً (حسب أحدث تعليق)
+const allPosts = () => [...new Set(items.map(x => x.post))];
+function shownPosts(){
+  const all = allPosts();
+  const valid = pinned.filter(p => all.includes(p));
+  return valid.length ? valid : all.slice(0, MAX_POSTS);
 }
-
-function stack(list){
-  const n = list.length || 1;
-  return '<div class="bar">' + ["positive","negative","critical","neutral"].map(t => {
-    const c = list.filter(x => x.tone === t).length;
-    return c ? `<i style="width:${c/n*100}%;background:${TC[t]}"></i>` : "";
-  }).join("") + "</div>";
-}
-
 function render(){
-  const nf = items.filter(needs).length;
-  const IC = {follow:"M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0", all:"M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z", posts:"M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z", overview:"M3 3v18h18M7 14l4-4 4 4 5-6"};
-  $("ttl").textContent = VIEWS[view];
-  $("nav").innerHTML = Object.keys(VIEWS).map(k =>
-    `<button data-act="nav" data-v="${k}" ${k === view ? 'aria-current="page"' : ""}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${IC[k]}"/></svg>${VIEWS[k]}${k === "follow" && nf ? `<b>${nf}</b>` : ""}</button>`).join("");
-  const m = $("main");
-  if(view === "follow"){
-    const list = items.filter(needs).sort((a,b) => (b.tone === "critical") - (a.tone === "critical"));
-    m.innerHTML = list.length ? '<div class="grid">' + list.map(x => `<div class="card item ${x.tone}">${panel(x)}</div>`).join("") + "</div>"
-      : '<div class="empty card">' + tr("nofollow") + '</div>';
-  } else if(view === "all"){
-    const posts = postIds();
-    m.innerHTML = `<div class="tools"><input id="q" type="search" placeholder="${tr('search')}" value="${esc(F.q)}">
-      <select id="ft"><option value="all">${tr("alltones")}</option>${Object.keys(TL).map(t => `<option value="${t}" ${F.tone === t ? "selected" : ""}>${TL[t]}</option>`).join("")}</select>
-      <select id="fp"><option value="all">${tr("allposts")}</option>${posts.map(p => `<option value="${esc(p)}" ${F.post === p ? "selected" : ""}>${esc(postName(p))}</option>`).join("")}</select><select id="fr">${[["all","r_all"],["24","r_24"],["7","last7"],["30","r_30"]].map(([v,k]) => `<option value="${v}" ${(F.range||"all") === v ? "selected" : ""}>${tr(k)}</option>`).join("")}</select><select id="fs">${[["new","s_new"],["old","s_old"]].map(([v,k]) => `<option value="${v}" ${(F.sort||"new") === v ? "selected" : ""}>${tr(k)}</option>`).join("")}</select></div><div id="list"></div>`;
-    renderList();
-  } else if(view === "posts"){
-    m.innerHTML = '<div class="grid gp">' + postIds().map(p => {
-      const l = items.filter(x => x.post === p), n = l.filter(needs).length;
-      return `<button class="card postc" data-act="post" data-p="${esc(p)}"><h2>${esc(postName(p))}</h2>${stack(l)}
-        <div class="meta" style="margin-top:10px"><span>${l.length} ${tr("comments")}</span><span>${n ? n + " " + tr("needsn") : tr("noneed")}</span></div></button>`;
-    }).join("") + "</div>" || '<div class="empty">' + tr("noposts") + '</div>';
-  } else {
-    const n = items.length || 1, c = t => items.filter(x => x.tone === t).length;
-    const pp = Math.round(c("positive")/n*100), a2 = pp + Math.round(c("negative")/n*100), a3 = a2 + Math.round(c("critical")/n*100);
-    const cats = Object.entries(items.reduce((a,x) => (x.cat && (a[x.cat] = (a[x.cat] || 0) + 1), a), {})).sort((a,b) => b[1] - a[1]);
-    const days = Object.entries(items.filter(x => x.ts).reduce((a,x) => { const k = new Date(x.ts).toLocaleDateString("en-CA", {timeZone:"Asia/Amman"}); a[k] = (a[k] || 0) + 1; return a; }, {})).sort().slice(-7);
-    const mx = Math.max(1, ...days.map(d => d[1]));
-    const hrs = Array(24).fill(0), wd = Array(7).fill(0), WI = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
-    const tsN = items.filter(x => x.ts).length;
-    items.filter(x => x.ts).forEach(x => { hrs[+new Date(x.ts).toLocaleString("en-GB", {timeZone:"Asia/Amman", hour:"2-digit", hour12:false}) % 24]++; wd[WI[new Date(x.ts).toLocaleDateString("en-US", {timeZone:"Asia/Amman", weekday:"short"})]]++; });
-    const hm = Math.max(1, ...hrs), wm = Math.max(1, ...wd), pk = hrs.indexOf(hm);
-    m.innerHTML = `<div class="grid g4">
-      <div class="card stat fill"><b>${items.length}</b><span>${tr("total")}</span></div>
-      <div class="card stat"><b>${c("negative")}</b><span>${tr("negative")}</span></div>
-      <div class="card stat"><b>${c("critical")}</b><span>${tr("critical")}</span></div>
-      <div class="card stat"><b>${items.filter(x => done.has(x.id)).length}</b><span>${tr("done")}</span></div></div>
-      <div class="grid g2" style="margin-top:16px">
-      <div class="card"><h2>${tr("last7")}</h2>${days.length ? '<div class="cols">' + days.map(([k,v]) => `<div class="c"><div class="pill"><i style="height:${v/mx*100}%"></i></div>${k.slice(5)}</div>`).join("") + "</div>" : '<div class="empty">' + tr("nodate") + '</div>'}</div>
-      <div class="card"><h2>${tr("byhour")}</h2>${tsN ? `<div class="hrs">${hrs.map((v,h) => `<i title="${h}:00 · ${v}" style="height:${v/hm*100}%"></i>`).join("")}</div><div class="hl"><span>0</span><span>6</span><span>12</span><span>18</span><span>23</span></div><div class="meta" style="margin-top:8px">${tr("peak")}: ${String(pk).padStart(2,"0")}:00</div>` : '<div class="empty">' + tr("nodate") + '</div>'}</div>
-      <div class="card"><h2>${tr("byday")}</h2>${tsN ? wd.map((v,i) => `<div class="row2"><span>${DAYS[lang][i]}</span><div class="bar"><i style="width:${v/wm*100}%;background:var(--accent)"></i></div><span>${v}</span></div>`).join("") : '<div class="empty">' + tr("nodate") + '</div>'}</div>
-      <div class="card"><h2>${tr("sentiment")}</h2><div class="donutw"><div class="donut" style="background:conic-gradient(var(--pos) 0 ${pp}%,var(--neg) ${pp}% ${a2}%,var(--crit) ${a2}% ${a3}%,var(--neu) ${a3}% 100%)"><span><b>${pp}%</b>${tr("positive")}</span></div>
-        <div class="leg">${Object.keys(TL).map(t => `<div><i style="background:${TC[t]}"></i>${TL[t]} · ${c(t)}</div>`).join("")}</div></div></div>
-      <div class="card"><h2>${tr("bycat")}</h2>${cats.length ? cats.map(([k,v]) => `<div class="row2"><span>${esc(CAT[k] || k)}</span><div class="bar"><i style="width:${v/n*100}%;background:var(--accent)"></i></div><span>${v}</span></div>`).join("") : '<div class="empty">' + tr("nodata") + '</div>'}</div>
-      <div class="card dark"><span>${tr("needs")}</span><div class="big">${nf}</div><button class="btn p" data-act="nav" data-v="follow">${tr("openfollow")}</button></div></div>`;
-  }
+  const all = allPosts(), shown = shownPosts();
+  $("posts").innerHTML = '<span class="hint">اختاري حتى ' + MAX_POSTS + ' بوستات:</span>' + all.map(p =>
+    `<button class="chip" data-post="${esc(p)}" aria-pressed="${shown.includes(p)}">${esc(postName(p))}<small>${items.filter(x => x.post === p).length}</small></button>`).join("");
+  const inShown = items.filter(x => shown.includes(x.post));
+  const counts = { all: inShown.length };
+  ["positive","negative","critical"].forEach(k => counts[k] = inShown.filter(x => x.tone === k).length);
+  $("tabs").innerHTML = Object.keys(LABELS).map(k =>
+    `<button class="tab" data-f="${k}" aria-pressed="${filter===k}">${LABELS[k]}<b>${counts[k]}</b></button>`).join("");
+  $("cols").innerHTML = shown.length ? shown.map(p => {
+    const mine = items.filter(x => x.post === p);
+    const rows = mine.filter(x => filter === "all" || x.tone === filter);
+    const c = k => mine.filter(x => x.tone === k).length;
+    return `<section class="col">
+      <div class="col-head">
+        <h2><span>${esc(postName(p))}</span><button class="rename" data-rename="${esc(p)}">تسمية</button></h2>
+        <div class="mini"><span class="badge positive">${c("positive")} إيجابي</span><span class="badge negative">${c("negative")} سلبي</span><span class="badge critical">${c("critical")} حرج</span></div>
+      </div>
+      <div class="col-body">${rows.length ? rows.map(x => `
+        <button class="row ${x.tone} ${done.has(x.id)?"done":""}" data-id="${esc(x.id)}">
+          <div class="top"><span class="user">${esc(x.username)}</span><span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><span class="badge ${x.tone}">${LABELS[x.tone]}</span><span class="badge ${isAuto(x) ? "auto" : (isTelegram(x) ? "telegram" : "manual")}">${autoLabel(x)}</span></span></div>
+          <p class="text">${esc(x.comment_text)}</p>
+        </button>`).join("") : '<div class="empty">ما في تعليقات بهالتصنيف.</div>'}</div>
+    </section>`;
+  }).join("") : '<div class="empty">ما في تعليقات لعرضها.</div>';
 }
-
-function renderList(){
-  const q = F.q.toLowerCase();
-  const lim = {"24":864e5, "7":6048e5, "30":2592e6}[F.range || "all"];
-  let l = items.filter(x => (F.tone === "all" || x.tone === F.tone) && (F.post === "all" || x.post === F.post) && (!q || (x.text + " " + x.user).toLowerCase().includes(q)) && (!lim || (x.ts && Date.now() - x.ts <= lim)));
-  if(F.sort === "old") l = l.slice().reverse();
-  $("list").innerHTML = l.length ? l.map(x => `<button class="lrow ${done.has(x.id) ? "done" : ""}" data-act="open" data-id="${esc(x.id)}">
-    <div class="meta"><span class="user">${esc(x.user)}</span><span class="badge ${x.tone}">${TL[x.tone]}</span><span>${esc(postName(x.post))}</span><span title="${esc(fmt(x.ts))}">${fmt(x.ts)}${x.ts ? " · " + ago(x.ts) : ""}</span></div><p>${esc(x.text)}</p></button>`).join("")
-    : '<div class="empty">' + tr("noresults") + '</div>';
+function openDetail(id){
+  const x = items.find(i => i.id === id); if(!x) return;
+  current = id;
+  const needs = x.action_required && !["auto_reply","none","n/a"].includes(String(x.action_required).toLowerCase());
+  $("dlg").innerHTML = `
+    <h2>${esc(x.username)}</h2>
+    <div class="meta"><span class="badge ${x.tone}">${LABELS[x.tone]}</span><span class="badge ${isAuto(x) ? "auto" : (isTelegram(x) ? "telegram" : "manual")}">${autoLabel(x)}</span><span>${esc(x.category || "")}</span><span>${esc(postName(x.post))}</span></div>
+    <div class="meta"><span>Confidence: ${x.confidence !== undefined && x.confidence !== "" ? esc(String(x.confidence)) + "%" : "—"}</span><span>Action: ${esc(x.action_required || "")}</span>${x.reply_id ? `<span>Reply ID: ${esc(String(x.reply_id).slice(-6))}</span>` : ""}</div>
+    ${isAuto(x) ? `<div class="notice" style="background:#e8f0fe;color:#1a56db">✅ هاد الكومنت انرد عليه تلقائي من الووركفلو (confidence ${esc(String(x.confidence ?? ""))}%). ما في داعي تردي عليه مرة تانية.</div>` : ""}
+    <p class="quote">${esc(x.comment_text)}</p>
+    ${x.summary ? `<div class="label">ملخص</div><div>${esc(x.summary)}</div>` : ""}
+    <div class="label">الرد المقترح</div>
+    <textarea class="reply" id="reply">${esc(x.suggested_reply)}</textarea>
+    <div class="actions">
+      <button class="btn primary" id="copy">نسخ الرد</button>
+      <button class="btn" id="mark">${done.has(x.id) ? "إعادة فتح" : "تم التعامل معه"}</button>
+      <button class="btn" id="close">إغلاق</button>
+    </div>
+    ${needs && x.tone !== "positive" ? `<div class="alert">يحتاج متابعة: ${esc(x.action_required)}</div>` : ""}`;
+  $("dlg").showModal();
 }
-
-function go(v){ location.hash = v; }
-function route(){ const h = location.hash.slice(1); view = VIEWS[h] ? h : "follow"; render(); }
-
 document.addEventListener("click", e => {
-  const t = e.target.closest("[data-act]"); if(!t) return;
-  const a = t.dataset.act, rp = t.closest(".rp"), x = rp && items.find(i => i.id === rp.dataset.id);
-  if(a === "nav") go(t.dataset.v);
-  else if(a === "refresh") load();
-  else if(a === "lang"){ lang = lang === "ar" ? "en" : "ar"; try { localStorage.setItem("lang", lang); } catch {} applyLang(); render(); }
-  else if(a === "theme"){
-    const next = getComputedStyle(document.documentElement).colorScheme === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    try { localStorage.setItem("theme", next); } catch {}
-  }
-  else if(a === "post"){ F = {q:"", tone:"all", post:t.dataset.p}; go("all"); }
-  else if(a === "open"){ const it = items.find(i => i.id === t.dataset.id); $("dlg").innerHTML = panel(it) + '<div class="acts"><button class="btn" data-act="close">' + tr("close") + '</button></div>'; $("dlg").showModal(); }
-  else if(a === "close") $("dlg").close();
-  else if(a === "copy") navigator.clipboard.writeText(rp.querySelector(".reply").value).then(() => { t.textContent = tr("copied"); setTimeout(() => t.textContent = tr("copy"), 1400); });
-  else if(a === "mark"){ done.has(x.id) ? done.delete(x.id) : done.add(x.id); saveDone(); $("dlg").open && $("dlg").close(); render(); }
-  else if(a === "send"){
-    const text = rp.querySelector(".reply").value.trim(), st = rp.querySelector(".st"); st.hidden = false;
-    if(!text){ st.textContent = tr("empty"); return; }
-    if(!confirm(tr("confirm") + "\n\n" + text)) return;
-    t.disabled = true; st.textContent = tr("sending");
-    fetch(REPLY_API_URL, {method:"POST", headers:{"Content-Type":"application/json", "X-Dashboard-Key": key()}, body:JSON.stringify({comment_id:x.id, post_id:x.post, username:x.user, reply_text:text})})
-      .then(r => { if(r.status === 401 || r.status === 403){ badKey(); throw new Error(tr("badpin")); } if(!r.ok) throw new Error("HTTP " + r.status); st.textContent = tr("sent"); done.add(x.id); saveDone(); setTimeout(() => { $("dlg").open && $("dlg").close(); render(); }, 1000); })
-      .catch(err => { st.textContent = tr("sendfail") + err.message; t.disabled = false; });
-  }
+  const t = e.target.closest("[data-f],[data-id],[data-post],[data-rename],#copy,#mark,#close,#refresh");
+  if(t){
+    if(t.dataset.f){ filter = t.dataset.f; render(); }
+    else if(t.dataset.id){ openDetail(t.dataset.id); }
+    else if(t.dataset.post){
+      const p = t.dataset.post; let cur = shownPosts().slice();
+      cur = cur.includes(p) ? cur.filter(x => x !== p) : [...cur, p].slice(-MAX_POSTS);
+      pinned = cur; save(); render();
+    }
+    else if(t.dataset.rename){
+      const n = prompt("اسم البوست:", names[t.dataset.rename] || "");
+      if(n !== null){ names[t.dataset.rename] = n.trim(); save(); render(); }
+    }
+    else if(t.id === "refresh"){ load(); }
+    else if(t.id === "close"){ $("dlg").close(); }
+    else if(t.id === "copy"){
+      navigator.clipboard.writeText($("reply").value).then(() => { t.textContent = "تم النسخ"; setTimeout(() => t.textContent = "نسخ الرد", 1500); });
+    } else if(t.id === "mark"){
+      done.has(current) ? done.delete(current) : done.add(current);
+      save(); $("dlg").close(); render();
+    }
+  } else if(e.target === $("dlg")){ $("dlg").close(); }
 });
-document.addEventListener("input", e => { if(e.target.id === "q"){ F.q = e.target.value.trim(); renderList(); } });
-document.addEventListener("change", e => { if(e.target.id === "ft"){ F.tone = e.target.value; renderList(); } if(e.target.id === "fp"){ F.post = e.target.value; renderList(); } if(e.target.id === "fr"){ F.range = e.target.value; renderList(); } if(e.target.id === "fs"){ F.sort = e.target.value; renderList(); } });
-window.addEventListener("hashchange", route);
-applyLang(); route(); load();
+load();
 </script>
 </body>
 </html>
