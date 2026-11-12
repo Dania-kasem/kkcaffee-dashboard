@@ -482,3 +482,68 @@ body {
   .focus-insights-grid .insight-action { grid-column: 2; grid-row: auto; justify-self: start; margin-top: 4px; }
   .post-preview-placeholder { min-height: 48px; }
 }
+
+/* Shared interaction and content refinements */
+.layout { gap: clamp(16px, 2vw, 26px); padding: clamp(12px, 2vw, 24px); }
+.sidebar { border-color: var(--line); box-shadow: 0 12px 34px color-mix(in srgb, var(--ink) 5%, transparent); }
+.nav a { min-width: 0; font-weight: 600; }
+.nav a.active { background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.nav a:hover { transform: none; }
+.nav a:focus-visible { z-index: 1; }
+.button { min-height: 42px; transition: color .16s ease, background .16s ease, border-color .16s ease, box-shadow .16s ease, transform .16s ease; }
+.button:active:not(:disabled) { transform: translateY(1px); }
+.button.primary { box-shadow: 0 5px 14px color-mix(in srgb, var(--accent) 20%, transparent); }
+.comment-card { min-width: 0; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.comment-card.critical { border-inline-start: 4px solid var(--critical); }
+.comment-card.negative { border-inline-start: 4px solid var(--negative); }
+.follow-inbox-detail .comment-card.critical, .follow-inbox-detail .comment-card.negative { padding-inline-start: 14px; }
+.comment-meta { row-gap: 8px; }
+.comment-meta time, .comments-table time, .inbox-row time { font-variant-numeric: tabular-nums; }
+.comment-text { overflow-wrap: anywhere; }
+.comment-actions textarea { min-width: 0; min-height: 96px; padding: 12px 14px; border-color: var(--line); line-height: 1.7; }
+.comment-actions .action-row .button.primary { min-height: 46px; padding-inline: 22px; font-weight: 750; }
+.comment-actions .action-row .button:not(.primary) { min-height: 42px; }
+.badge { min-height: 24px; font-size: .72rem; line-height: 1.35; }
+.reply-unknown-badge { border: 1px solid color-mix(in srgb, var(--neutral) 22%, var(--line)); }
+.handled-badge { border: 1px solid color-mix(in srgb, var(--positive) 25%, var(--line)); }
+.auto-badge { border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--line)); }
+.inline-alert, .new-banner, .empty-state, .filter-panel { overflow-wrap: anywhere; }
+.filter-selects { min-width: 0; flex-wrap: wrap; }
+.filter-selects label { min-width: 0; }
+.filter-selects select { min-width: 0; }
+.toast { max-width: min(520px, calc(100vw - 28px)); line-height: 1.55; }
+:root[data-theme="dark"] .sidebar { box-shadow: 0 14px 36px rgba(0, 0, 0, .2); }
+:root[data-theme="dark"] .button:not(.primary) { border-color: color-mix(in srgb, var(--line) 88%, var(--muted)); }
+:root[data-theme="dark"] .button.primary { color: #17152f; }
+:root[data-theme="dark"] .comment-actions textarea { background: color-mix(in srgb, var(--surface-soft) 80%, var(--bg)); }
+.sync-refreshing { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.refresh-button[aria-busy="true"] .refresh-icon { animation: dashboard-refresh-spin .9s linear infinite; }
+@keyframes dashboard-refresh-spin { to { transform: rotate(360deg); } }
+@media (max-width: 1050px) {
+  .filter-panel { align-items: stretch; flex-wrap: wrap; }
+  .filter-selects { flex: 1 1 100%; }
+  .filter-selects label { flex: 1 1 160px; justify-content: space-between; }
+}
+@media (max-width: 760px) {
+  .layout { padding-inline: 12px; }
+  .sidebar { min-width: 0; }
+  .brand { min-width: 0; }
+  .brand b { font-size: .9rem; }
+  .page-header { align-items: flex-start; }
+  .comment-actions .action-row { gap: 7px; }
+  .comment-actions .action-row .button.primary { flex: 1 1 100%; }
+  .comment-actions .action-row .button:not(.primary) { flex: 1 1 auto; }
+  .bulk-bar { inset-inline-start: 50%; }
+  .toast-stack { inset-inline: 10px; align-items: center; }
+}
+@media (max-width: 360px) {
+  .layout { padding-inline: 9px; }
+  .sidebar { gap: 5px; padding-inline: 8px; }
+  .nav a { min-width: 58px; }
+  .sidebar-bottom { gap: 4px; }
+  .stat-card { min-width: 0; }
+  .comment-actions .action-row .button:not(.primary) { min-width: 0; padding-inline: 9px; font-size: .76rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav a, .button, .list-row, .inbox-row, .post-analytics-card { transition-duration: .01ms !important; }
+}

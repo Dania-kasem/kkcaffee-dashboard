@@ -134,4 +134,17 @@ describe('dashboard stabilization regressions', () => {
     expect(await screen.findByText('تعذر الاتصال. نعرض آخر بيانات تم حفظها.')).toBeTruthy();
     expect(screen.getByText('Slow service and cold coffee')).toBeTruthy();
   });
+
+  it('shows a subtle refresh state while cached comments remain visible', async () => {
+    localStorage.setItem('cache-data', JSON.stringify(rawRows));
+    localStorage.setItem('cache-time', JSON.stringify(Date.now()));
+    vi.mocked(fetchComments).mockImplementationOnce(() => new Promise(() => {}));
+    const { container } = renderApp('/comments');
+
+    expect(screen.getByText('Slow service and cold coffee')).toBeTruthy();
+    await waitFor(() => expect(container.querySelector('.sync-refreshing')).toBeTruthy());
+    expect(container.querySelector('.refresh-button')?.getAttribute('aria-busy')).toBe('true');
+    expect(container.querySelector('.skeleton')).toBeNull();
+    expect(screen.getByText('Slow service and cold coffee')).toBeTruthy();
+  });
 });
